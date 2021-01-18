@@ -8,7 +8,7 @@ const assert = require("assert");
 const mongoose = require("mongoose");
 
 
-const Books = require("../models/bookSchema");
+const Movies = require("../models/movieSchema");
 
 const url = "mongodb://localhost:27017/chapters";
 
@@ -26,20 +26,20 @@ db.once('open', () => {
     bookRouter.route("/")
     .get((req, res, next) => {
       res.statusCode = 200;
-      res.sendFile(path.join(__dirname, '../public', 'new-book.html'))
+      res.sendFile(path.join(__dirname, '../public', 'new-movie.html'))
     })
     .post((req, res, next) => {
         // Document
         Books.create(req.body);
-        res.sendFile(path.join(__dirname, '../public', 'another-book.html'));
-      })
+        res.sendFile(path.join(__dirname, '../public', 'another-movie.html'));
+      });
     
     bookRouter.route("/another-book")
     .get((req, res, next) => {
       res.statusCode = 200;
-      res.sendFile(path.join(__dirname, '../public', 'another-book.html'));
-    })
-})
+      res.sendFile(path.join(__dirname, '../public', 'another-movie.html'));
+    });
+});
 
 
 // MongoClient.connect(url, (err, client) => {

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 
-const bookSchema = new mongoose.Schema({
-    isbn: {
-        type: Number,
+const movieSchema = new mongoose.Schema({
+    genre: {
+        type: String,
         required: true
     },
     title: {
@@ -11,26 +11,28 @@ const bookSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    author: {
+    director: {
         type: String,
         required: true
     },
-    'published date': {
+    'release date': {
         type: Number,
         required: true
     },
-    publisher: {
+    producer: {
         type: String,
         required: true
     },
-    'number of pages': {
+    rating: {
         type: Number,
+        min: 1,
+        max: 5,
         required: true
     }
 }, 
 { versionKey: false }
 );
 
-const Books = mongoose.model('Books', bookSchema);
+const Movies = mongoose.model('Movies', movieSchema);
 
-module.exports = Books;
+module.exports = Movies;
