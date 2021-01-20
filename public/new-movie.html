@@ -23,28 +23,10 @@
 
       <form action="http://localhost:3000/create-a-movie" method="POST">
         <div class="form-group">
-          <label for="Genre">Movie Genre</label>
-          <select name="movies" id="movies">
-            <option value="action">Action</option>
-            <option value="adventure">Adventure</option>
-            <option value="animation">Animation</option>
-            <option value="comedy">Comedy</option>
-            <option value="crime">Crime</option>
-            <option value="documentary">Documentary</option>
-            <option value="drama">Drama</option>
-            <option value="fantasy">Fantasy</option>
-            <option value="horror">Horror</option>
-            <option value="musical">Musical</option>
-            <option value="mystery">Mystery</option>
-            <option value="romance">Romance</option>
-            <option value="romantic comedy">Romantic Comedy</option>
-            <option value="science fiction">Science Fiction</option>
-            <option value="thriller">Thriller</option>
-            <option value="war">War</option>
-            <option value="western">Western</option>
-          </select>
-        </div>
-
+            <label for="Genre">Genre</label>
+            <input class="form-control" name="genre" />
+          </div>
+        
         <div class="form-group">
           <label for="Title">Title</label>
           <input class="form-control" name="title" />
@@ -69,7 +51,7 @@
           <label for="Rating">Rating</label>
           <input
             class="form-control"
-            name="Rating"
+            name="rating"
             placeholder="Enter a number from 1 - 5"
           />
         </div>

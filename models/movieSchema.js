@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const assert = require('assert');
 
 const movieSchema = new mongoose.Schema({
     genre: {
@@ -27,12 +27,12 @@ const movieSchema = new mongoose.Schema({
         type: Number,
         min: 1,
         max: 5,
-        required: true
     }
 }, 
 { versionKey: false }
 );
 
 const Movies = mongoose.model('Movies', movieSchema);
+
 
 module.exports = Movies;

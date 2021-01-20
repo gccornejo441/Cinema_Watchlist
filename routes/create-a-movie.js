@@ -10,15 +10,21 @@ const mongoose = require("mongoose");
 
 const Movies = require("../models/movieSchema");
 
+
+Movies.createCollection()
+.then((collection) => {
+  console.log('Movie collection created!');
+});
+
 const url = "mongodb://localhost:27017/chapters";
 
-const dbName = "chapters";
+
 
 bookRouter.use(bodyParser.urlencoded({ extended: false }));
 bookRouter.use(bodyParser.json());
 bookRouter.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true }); 
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
@@ -30,11 +36,26 @@ db.once('open', () => {
     })
     .post((req, res, next) => {
         // Document
-        Books.create(req.body);
-        res.sendFile(path.join(__dirname, '../public', 'another-movie.html'));
+      const movieDoc = new Movies(req.body);
+      movieDoc.save()
+      .catch(err => console.log(err._message));
+        //   const subMovie = req.body;
+      //  const movie = Movies.create(subMovie)
+      //  movie.then(() => {
+      //    if (JSON.stringify(subMovie.rating)) {
+      //      console.log('Data received: ' + JSON.stringify(subMovie.rating));
+  
+      //      res.sendFile(path.join(__dirname, '../public', 'another-movie.html')); 
+      //    } else {
+      //      console.log(JSON.stringify(subMovie.rating))
+      //      res.statusCode = 403
+      //      res.end('<html><body><h1>Could not create book</h1></body></html>');
+      //    }
+      //  })
+      res.sendFile(path.join(__dirname, '../public', 'another-movie.html')); 
       });
     
-    bookRouter.route("/another-book")
+    bookRouter.route("/another-movie")
     .get((req, res, next) => {
       res.statusCode = 200;
       res.sendFile(path.join(__dirname, '../public', 'another-movie.html'));
