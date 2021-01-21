@@ -17,7 +17,13 @@ const movieSchema = new mongoose.Schema({
     },
     'release date': {
         type: Number,
-        required: true
+        required: true,
+        validate: {
+            validator: (val) => {
+                return val.toString().length == 4;
+            },
+            message: 'Value must be a four digit integer'
+        }
     },
     producer: {
         type: String,
@@ -25,8 +31,12 @@ const movieSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
-        min: 1,
-        max: 5,
+        validate: {
+            validator: (val) => {
+                return 1 <= val && val <= 5;
+            },
+            message: 'Must be less than 5 or more than 1!'
+          }
     }
 }, 
 { versionKey: false }

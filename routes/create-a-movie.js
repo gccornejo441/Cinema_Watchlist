@@ -35,23 +35,17 @@ db.once('open', () => {
       res.sendFile(path.join(__dirname, '../public', 'new-movie.html'))
     })
     .post((req, res, next) => {
-        // Document
+      
+      // Schema instance
       const movieDoc = new Movies(req.body);
+
       movieDoc.save()
-      .catch(err => console.log(err._message));
-        //   const subMovie = req.body;
-      //  const movie = Movies.create(subMovie)
-      //  movie.then(() => {
-      //    if (JSON.stringify(subMovie.rating)) {
-      //      console.log('Data received: ' + JSON.stringify(subMovie.rating));
-  
-      //      res.sendFile(path.join(__dirname, '../public', 'another-movie.html')); 
-      //    } else {
-      //      console.log(JSON.stringify(subMovie.rating))
-      //      res.statusCode = 403
-      //      res.end('<html><body><h1>Could not create book</h1></body></html>');
-      //    }
-      //  })
+      .catch(err => {
+        res.status(400).send(`Validation error: ${err._message}`);
+        res.end();
+        console.log(err);
+      });
+      // If validation error does not fail
       res.sendFile(path.join(__dirname, '../public', 'another-movie.html')); 
       });
     
