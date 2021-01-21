@@ -18,7 +18,8 @@ Movies.createCollection()
 
 const url = "mongodb://localhost:27017/chapters";
 
-
+// Back to create-a-home
+const resubmit = path.join(__dirname, '../public', 'new-movie.html');
 
 bookRouter.use(bodyParser.urlencoded({ extended: false }));
 bookRouter.use(bodyParser.json());
@@ -41,7 +42,8 @@ db.once('open', () => {
 
       movieDoc.save()
       .catch(err => {
-        res.status(400).send(`Validation error: ${err._message}`);
+        res.status(400).send(`Validation error: ${err._message} <html><body><a href="new-movie.html">return</a></body></html>`);
+        
         res.end();
         console.log(err);
       });
