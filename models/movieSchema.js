@@ -38,8 +38,9 @@ const movieSchema = new mongoose.Schema({
             message: 'Must be less than 5 or more than 1!'
           }
     }
-}, 
-{ versionKey: false }
+}, { versionKey: false, 
+    timestamps: new Date() 
+}
 );
 
 const Movies = mongoose.model('Movies', movieSchema);

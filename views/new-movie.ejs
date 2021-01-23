@@ -31,19 +31,11 @@
               <a class="nav-link" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="new-movie.html">Enter A Movie</a>
+              <a class="nav-link" href="new-movie">Enter A Movie</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="dashboard.html" tabindex="-1" aria-disabled="true">View Submitted Movies</a>
+                <a class="nav-link" href="dashboard"  tabindex="-1" aria-disabled="true">View Submitted Movies</a>
             </li>
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li> -->
           </ul>
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -60,10 +52,10 @@
       <h1>Enter a Movie</h1>
       <hr />
 
-      <form action="http://localhost:3000/create-a-movie" method="POST">
+      <form action="/another-movie" method="POST">
         <div class="form-group">
             <label for="Genre">Genre</label>
-            <input class="form-control" name="genre" />
+            <input class="form-control" name="genre" maxlength="10" />
           </div>
         
         <div class="form-group">
@@ -88,6 +80,11 @@
 
         <div class="form-group">
           <label for="Rating">Rating</label>
+          
+          <!--Easy Alternative-->
+          <!-- <input type="number" id="rating" name="rating" min="1" max="5"><br><br> -->
+
+          <!--Practice Validation-->
           <input
             class="form-control"
             name="rating"
@@ -101,7 +98,7 @@
         
       </form>
       <br>
-      <a class="btn btn-primary" href="home.html" role="button">Back</a>
+      <a class="btn btn-primary" href="/" role="button">Back</a>
     </div>
   </body>
 </html>

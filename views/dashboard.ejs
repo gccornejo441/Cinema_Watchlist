@@ -53,10 +53,10 @@
           <a class="nav-link" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="new-movie.html">Enter A Movie</a>
+          <a class="nav-link" href="new-movie">Enter A Movie</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="dashboard.html" tabindex="-1" aria-disabled="true">View Submitted Movies</a>
+          <a class="nav-link" href="dashboard"  tabindex="-1" aria-disabled="true">View Submitted Movies</a>
         </li>
       </ul>
       <form class="d-flex">
@@ -293,22 +293,6 @@
         </table>
       </div>
     </main>
-
-    <h2><%=message%></h2>
-
-    <% if( Array.isArray(products) ) { %>
-    <ul>
-    <%products.forEach( function( prd ){ %>
-    <b>
-    <li> <%= prd.prdId %> ; <%= prd.name %> ; $<%= prd.price %></li>
-    </b>
-    <% })} else { %>
-    <b>
-    Id: <%= products.prdId %>
-    Name: <%= products.name %>
-    Price: $<%= products.price %>
-    </b>
-    <% }; %>
 
   </div>
 </div>
