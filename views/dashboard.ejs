@@ -169,7 +169,7 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>#</th>
+              <th>Identification Number</th>
               <th>Header</th>
               <th>Header</th>
               <th>Header</th>
@@ -178,11 +178,11 @@
           </thead>
           <tbody>
             <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
+              <td><%- result._id %></td>
+              <td><%- result.genre %></td>
+              <td><%- result.title %></td>
+              <td><%- result.director %></td>
+              <td><%- result['release date'] %></td>
             </tr>
             <tr>
               <td>1,002</td>
@@ -294,6 +294,7 @@
       </div>
     </main>
 
+    <h2><% result.title %></h2>
   </div>
 </div>
 

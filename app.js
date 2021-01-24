@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const ejs = require('ejs');
 
 const movieRouter = require('./routes/create-a-movie');
 const indexRouter = require('./routes/index');
@@ -16,10 +15,6 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// app.get('/', (req, res) => {
-//   res.render('sample');
-// });
 
 app.use(logger('dev'));
 app.use(express.json());
