@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
 const movieRouter = require('./routes/create-a-movie');
 const indexRouter = require('./routes/index');
@@ -11,6 +12,12 @@ const dashRouter = require('./routes/dashboard');
 const anotherRouter = require('./routes/another-movie');
 
 const app = express();
+
+// Mongo Connection
+mongoose.connect('mongodb://localhost:27017/chapters',
+ {useNewUrlParser: true}, 
+ { useUnifiedTopology: true })
+ .catch(error => handleError(error));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,9 +29,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use('/', indexRouter);
-app.use('/signin', usersRouter);
+app.use('/users', usersRouter);
 app.use('/new-movie', movieRouter);
 app.use('/dashboard', dashRouter);
 app.use('/another-movie', anotherRouter);
