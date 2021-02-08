@@ -1,49 +1,59 @@
-var express = require('express');
+const express = require("express");
+const passport = require('passport');
 
-var router = express.Router();
+const router = express.Router();
 
 // User schema
-const Users = require('../models/Users');
+const Users = require("../models/Users");
 
 // Hashing Information
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
-const someOtherPlaintextPassword = 'not_bacon';
 
 /* GET users listing. */
-router.get('/signin', (req, res, next) => {
+router.get("/signin", (req, res, next) => {
   console.log(req.body);
-  res.render('signin')
+  res.render("signin");
 });
 
-router.post('/signin', (req, res, next) => {
+// router.post("/signin", (req, res, next) => {
+//   console.log(req.body);
+
+//   res.render("signin");
+// });
+
+router.get("/register", (req, res, next) => {
   console.log(req.body);
-  res.render('signin')
+  res.render("register");
 });
 
-router.get('/register', (req, res, next) => {
-  console.log(req.body);
-  res.render('register');
-})
+router.post("/register", (req, res, next) => {
+  const { name, username, email, password } = req.body;
+  const newUser = new Users({ name, username, email, password });
 
-router.post('/register', (req, res, next) => {
-  console.log(req.body);
+  bcrypt.genSalt(saltRounds, (err, salt) => {
+    if (err) return next(err);
 
-    const { name, username, email, password } = req.body;
-    const newUser = new Users({ name, username, email, password });
-    
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (err) return next(err);
 
-    bcrypt.hash(newUser.password, saltRounds, (err, hash) => {
-      if (err) console.log(err);
       newUser.password = hash;
-      newUser.save()
-      .then((user) => {
-        console.log('User Information: ', user);
-        res.redirect('/users/register');
-      })
+      newUser
+        .save()
+        .then((user) => {
+          console.log("User Information: ", user);
+          res.redirect("/users/register");
+        })
+        .catch((err) => console.log(err));
     });
-    
-})
+  });
+});
+
+router.post('/signin', passport.authenticate('local', { 
+  successRedirect: '/',
+  failureRedirect: '/users/signin',
+ })
+);
+
 
 module.exports = router;

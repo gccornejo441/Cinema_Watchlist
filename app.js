@@ -6,6 +6,8 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+
 
 const movieRouter = require('./routes/create-a-movie');
 const indexRouter = require('./routes/index');
@@ -14,6 +16,9 @@ const dashRouter = require('./routes/dashboard');
 const anotherRouter = require('./routes/another-movie');
 
 const app = express();
+
+// Passport Config
+require('./config/passport');
 
 // Mongo Connection
 mongoose.connect('mongodb://localhost:27017/chapters',
@@ -30,6 +35,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Bodyparser
 app.use(bodyParser.urlencoded({
