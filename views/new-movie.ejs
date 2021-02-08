@@ -16,12 +16,11 @@
     <title>Enter a Movie</title>
   </head>
   <body>
-
     <!-- NAVBAR -->
     <%- include ('./navbar'); %>
     <!-- NAVBAR END-->
-    <br>
-    <br>
+    <br />
+    <br />
     <div class="container">
       <hr />
       <h1>Enter a Movie</h1>
@@ -29,10 +28,10 @@
 
       <form action="/another-movie" method="POST">
         <div class="form-group">
-            <label for="Genre">Genre</label>
-            <input class="form-control" name="genre" maxlength="10" />
-          </div>
-        
+          <label for="Genre">Genre</label>
+          <input class="form-control" name="genre" maxlength="10" />
+        </div>
+
         <div class="form-group">
           <label for="Title">Title</label>
           <input class="form-control" name="title" />
@@ -55,7 +54,7 @@
 
         <div class="form-group">
           <label for="Rating">Rating</label>
-          
+
           <!--Easy Alternative-->
           <!-- <input type="number" id="rating" name="rating" min="1" max="5"><br><br> -->
 
@@ -68,11 +67,10 @@
         </div>
 
         <!--Other fields-->
-        <br>
+        <br />
         <button type="submit" class="btn btn-primary">Submit</button>
-        
       </form>
-      <br>
+      <br />
       <a class="btn btn-primary" href="/" role="button">Back</a>
     </div>
   </body>

@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 const movieRouter = require('./routes/create-a-movie');
 const indexRouter = require('./routes/index');
@@ -29,6 +31,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Bodyparser
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+// Session Cookie
+app.use(session({
+  secret: 'shhh secret',
+  saveUninitialized: true,
+  resave: true
+}))
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/new-movie', movieRouter);
@@ -50,5 +64,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
