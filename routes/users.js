@@ -1,5 +1,5 @@
 const express = require("express");
-const passport = require('passport');
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -16,12 +16,6 @@ router.get("/signin", (req, res, next) => {
   res.render("signin");
 });
 
-// router.post("/signin", (req, res, next) => {
-//   console.log(req.body);
-
-//   res.render("signin");
-// });
-
 router.get("/register", (req, res, next) => {
   console.log(req.body);
   res.render("register");
@@ -32,28 +26,25 @@ router.post("/register", (req, res, next) => {
   const newUser = new Users({ name, username, email, password });
 
   bcrypt.genSalt(saltRounds, (err, salt) => {
-    if (err) return next(err);
+    bcrypt.hash(newUser.password, salt, (err, crypted) => {
 
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if (err) return next(err);
-
-      newUser.password = hash;
+      // Saving user to the DB
+      newUser.password = crypted;
       newUser
         .save()
         .then((user) => {
           console.log("User Information: ", user);
-          res.redirect("/users/register");
+          res.redirect("/users/signin");
         })
         .catch((err) => console.log(err));
     });
   });
 });
 
-router.post('/signin', passport.authenticate('local', { 
-  successRedirect: '/',
-  failureRedirect: '/users/signin',
- })
+router.post("/signin", passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/users/signin",
+  })
 );
-
 
 module.exports = router;
