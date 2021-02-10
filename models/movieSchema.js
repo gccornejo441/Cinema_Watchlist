@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const assert = require('assert');
 
 const movieSchema = new mongoose.Schema({
     genre: {
@@ -44,6 +43,5 @@ const movieSchema = new mongoose.Schema({
 );
 
 const Movies = mongoose.model('Movies', movieSchema);
-
 
 module.exports = Movies;

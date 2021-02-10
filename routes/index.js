@@ -1,13 +1,18 @@
 const express = require('express');
-const path = require('path');
+const { ensureAuthenticated } = require('../config/auth');
 
 
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
 
   res.render('home');
+});
+
+router.get('/homepage', ensureAuthenticated, (req, res, next) => {
+
+  res.render('home2');
 });
 
 module.exports = router;

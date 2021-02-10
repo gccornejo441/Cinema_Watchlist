@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 
-const movieRouter = require('./routes/create-a-movie');
+const newMovieRouter = require('./routes/new-movie');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const dashRouter = require('./routes/dashboard');
@@ -19,6 +19,20 @@ const app = express();
 
 // Passport Config
 require('./config/passport');
+
+// Session 
+app.use(session({
+  secret: 'shhh secret',
+  resave: true,
+  saveUninitialized: true,
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Bodyparser
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Mongo Connection
 mongoose.connect('mongodb://localhost:27017/chapters',
@@ -36,25 +50,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Bodyparser
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-// Session Cookie
-app.use(session({
-  secret: 'shhh secret',
-  saveUninitialized: true,
-  resave: true
-}))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/new-movie', movieRouter);
+app.use('/new-movie', newMovieRouter);
 app.use('/dashboard', dashRouter);
 app.use('/another-movie', anotherRouter);
 
@@ -73,6 +72,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = app;

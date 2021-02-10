@@ -1,30 +1,15 @@
-const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
-const assert = require('assert');
+const { ensureAuthenticated } = require('../config/auth');
 
 const dashRouter = express.Router();
+const Movies = require('../models/movieSchema');
 
-// User schema
-const Users = require('../models/Users');
-
-const url = 'mongodb://localhost:27017';
-const dbname = 'chapters';
-
-MongoClient.connect(url, (err, client) => {
-  
-  if(err) throw err;
-
-  const collection = client.db(dbname).collection('movies');
-  collection.find({}).toArray()
-  .then((result) => {
-      dashRouter.get('/', (req, res, next) => {
-       console.log('Document Found: ', result);
-       res.render('dashboard', { result: result });
-    });
-
+dashRouter.get('/', ensureAuthenticated, (req, res, next) => {
+  Movies.find({}, (err, result) => {
+    res.render('dashboard', { result: result });
   })
-  .catch((err) => next(err));
-});
-
+  .catch(err => next(err));
+})
 
 module.exports = dashRouter;
+
