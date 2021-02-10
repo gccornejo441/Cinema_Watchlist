@@ -9,7 +9,7 @@
       content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
     <meta name="generator" content="Hugo 0.79.0" />
-    <title>Starter Template · Bootstrap v5.0</title>
+    <title>Homepage</title>
 
     <link
       rel="canonical"
@@ -49,8 +49,8 @@
   <body>
     <main class="form-signin">
       <!-- NAVBAR -->
-      <%- include ('./navbar2'); %>
-      <!-- NAVBAR END-->
+      <%- include ('partials/navbar-post'); %>
+    <!-- NAVBAR END-->
       <div class="starter-template text-center py-5 px-3">
         <h1>Movie Database</h1>
         <p class="lead">
@@ -87,6 +87,10 @@
         </form>
       </div>
     </main>
+
+    <!--FOOTER START-->
+    <%- include ('partials/footer'); %>
+    <!--FOOTER END-->
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   </body>

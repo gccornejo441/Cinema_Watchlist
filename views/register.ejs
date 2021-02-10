@@ -9,7 +9,7 @@
       content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
     <meta name="generator" content="Hugo 0.79.0" />
-    <title>Signin Template · Bootstrap v5.0</title>
+    <title>User Registration</title>
 
     <link
       rel="canonical"
@@ -54,7 +54,7 @@
   </head>
   <body class="text-center">
     <!-- NAVBAR -->
-    <%- include ('./navbar2'); %>
+    <%- include ('partials/navbar-post'); %>
     <!-- NAVBAR END-->
 
     <main class="form-signin">
@@ -124,5 +124,10 @@
         <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
       </form>
     </main>
+
+    <!--FOOTER START-->
+    <%- include ('partials/footer'); %>
+    <!--FOOTER END-->
+
   </body>
 </html>
