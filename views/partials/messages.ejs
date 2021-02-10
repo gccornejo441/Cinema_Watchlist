@@ -1,8 +1,8 @@
-<% if (message != '') { %>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <%= message %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-<% } %>
+<div class="row justify-content-center">
+  <% if (message != '') { %>
+  <div class="col-lg-6 text-center alert alert-success alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+</div>
