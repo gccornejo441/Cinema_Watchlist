@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const flash = require('connect-flash');
 
 
 const newMovieRouter = require('./routes/new-movie');
@@ -40,17 +41,26 @@ mongoose.connect('mongodb://localhost:27017/chapters',
  { useUnifiedTopology: true })
  .catch(error => handleError(error));
 
-// view engine setup
+// Engine Setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// App Configuration
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
+// Global variables 
+// Borrowed middleware: bradtraversy/node_passport_login
+app.use((req, res, next) => {
+  res.locals.message = req.flash('logout');
+  next();
+});
 
+// Routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/new-movie', newMovieRouter);
@@ -58,12 +68,12 @@ app.use('/dashboard', dashRouter);
 app.use('/another-movie', anotherRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -19,6 +19,7 @@ router.get('/signin', (req, res, next) => {
 
 router.get('/signout', ensureAuthenticated, (req, res, next) => {
   req.logout();
+  req.flash('logout', 'You are logged out')
   res.redirect('/');
 });
 
@@ -48,8 +49,9 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post('/signin', passport.authenticate('local', {
-    successRedirect: '/dashboard',
+    successRedirect: '/homepage',
     failureRedirect: '/users/signin',
+    failureFlash: true
   })
 );
 
