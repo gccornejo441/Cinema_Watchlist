@@ -57,6 +57,7 @@ app.use(flash());
 // Borrowed middleware: bradtraversy/node_passport_login
 app.use((req, res, next) => {
   res.locals.message = req.flash('logout');
+  res.locals.validation = req.flash('error');
   next();
 });
 

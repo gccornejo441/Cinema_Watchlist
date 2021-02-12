@@ -13,6 +13,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 router.get("/signin", (req, res, next) => {
+  console.log(req.flash('error'));
   console.log("isAuthenticated: ", req.isAuthenticated());
   res.render("signin");
 });
@@ -37,27 +38,24 @@ router.post("/register", (req, res, next) => {
       "Name must be greater than one but less than 35 characters."
     );
   } else {
-    console.log(username);
     Users.findOne({ username: username }, (err, user) => {
-      console.log(err);
-      console.log(user);
       if (err == null && user == null) {
         const isEmail = Users.exists({ email: email });
         const emailValidator = validator.validate(email);
 
         if (!isEmail) {
           error.push("Email is not valid.");
-          console.log(error);
+          req.flash("error", `Validation Error: ${error}`);
           return res.redirect("/users/register");
         } else if (emailValidator != true) {
           error.push("Email is not valid.");
-          console.log(error);
+          req.flash("error", `Validation Error: ${error}`);
           return res.redirect("/users/register");
         } else if (password.length < 6) {
           error.push(
             "Not a secure password. A password of six characters or longer is acceptable."
           );
-          console.log(error);
+          req.flash("error", `Validation Error: ${error}`);
           return res.redirect("/users/register");
         } else {
           const newUser = new Users({ name, username, email, password });
@@ -78,15 +76,14 @@ router.post("/register", (req, res, next) => {
         }
       } else {
         error.push("Username is being used.");
-        console.log(error);
+        req.flash("error", `Validation Error: ${error}`);
         return res.redirect("/users/register");
       }
     });
   }
 });
 
-router.post(
-  "/signin",
+router.post("/signin",
   passport.authenticate("local", {
     successRedirect: "/homepage",
     failureRedirect: "/users/signin",

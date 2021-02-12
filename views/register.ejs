@@ -51,6 +51,9 @@
     <main class="form-signin">
       <form action="/users/register" method="POST">
         <h1>MOVIE DB</h1>
+            <!-- VALIDATION ERROR -->
+    <%- include ('partials/messages'); %>
+    <!-- VALIDATION ERROR-->
         <h2 class="h3 mb-3 fw-normal">Register</h2>
         <div class="form-group">
           <label for="name" class="visually-hidden">Full Name</label>
