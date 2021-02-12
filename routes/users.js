@@ -42,48 +42,40 @@ router.post("/register", (req, res, next) => {
       console.log(err);
       console.log(user);
       if (err == null && user == null) {
-        Users.findOne({ email: email }, (err, user) => {
-          const emailValidator = validator.validate(email);
+        const isEmail = Users.exists({ email: email });
+        const emailValidator = validator.validate(email);
 
-          console.log("user: ", user);
-          console.log(emailValidator);
+        if (!isEmail) {
+          error.push("Email is not valid.");
+          console.log(error);
+          return res.redirect("/users/register");
+        } else if (emailValidator != true) {
+          error.push("Email is not valid.");
+          console.log(error);
+          return res.redirect("/users/register");
+        } else if (password.length < 6) {
+          error.push(
+            "Not a secure password. A password of six characters or longer is acceptable."
+          );
+          console.log(error);
+          return res.redirect("/users/register");
+        } else {
+          const newUser = new Users({ name, username, email, password });
 
-          console.log("email: ", email);
-
-          if (user == null) {
-            if (emailValidator != true) {
-              error.push("Email is not valid.");
-              console.log(error);
-              return res.redirect("/users/register");
-            }
-          } else if (user.email === email) {
-            error.push("Email is not valid.");
-            console.log(error);
-            return res.redirect("/users/register");
-          } else if (password.length < 6) {
-            error.push(
-              "Not a secure password. A password of six characters or longer is acceptable."
-            );
-            console.log(error);
-            return res.redirect("/users/register");
-          } else {
-            const newUser = new Users({ name, username, email, password });
-
-            bcrypt.genSalt(saltRounds, (err, salt) => {
-              bcrypt.hash(newUser.password, salt, (err, crypted) => {
-                // Saving user to the DB
-                newUser.password = crypted;
-                newUser
-                  .save()
-                  .then((user) => {
-                    console.log("User Information: ", user);
-                    return res.redirect("/users/signin");
-                  })
-                  .catch((err) => console.log(err));
-              });
+          bcrypt.genSalt(saltRounds, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, crypted) => {
+              // Saving user to the DB
+              newUser.password = crypted;
+              newUser
+                .save()
+                .then((user) => {
+                  console.log("User Information: ", user);
+                  res.redirect("/users/signin");
+                })
+                .catch((err) => console.log(err));
             });
-          }
-        });
+          });
+        }
       } else {
         error.push("Username is being used.");
         console.log(error);
