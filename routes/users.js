@@ -40,22 +40,27 @@ router.post("/register", (req, res, next) => {
   } else {
     Users.findOne({ username: username }, (err, user) => {
       if (err == null && user == null) {
-        const isEmail = Users.exists({ email: email });
+        Users.exists({ email: email })
+        .then((doc) => {
+          if (doc) {
+          error.push("Email already in use.");
+          req.flash("error", error);
+          return res.redirect("/users/register");
+          }
+          next();
+        })
+        .catch((err) => console.log(err))
         const emailValidator = validator.validate(email);
 
-        if (!isEmail) {
+          if (emailValidator != true) {
           error.push("Email is not valid.");
-          req.flash("error", `Validation Error: ${error}`);
-          return res.redirect("/users/register");
-        } else if (emailValidator != true) {
-          error.push("Email is not valid.");
-          req.flash("error", `Validation Error: ${error}`);
+          req.flash("error", error);
           return res.redirect("/users/register");
         } else if (password.length < 6) {
           error.push(
             "Not a secure password. A password of six characters or longer is acceptable."
           );
-          req.flash("error", `Validation Error: ${error}`);
+          req.flash("error", error);
           return res.redirect("/users/register");
         } else {
           const newUser = new Users({ name, username, email, password });

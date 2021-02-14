@@ -22,6 +22,9 @@
     <br />
     <br />
     <div class="container">
+      <!-- VALIDATION ERROR -->
+      <%- include ('partials/messages'); %>
+      <!-- VALIDATION ERROR-->
       <hr />
       <h1>Enter a Movie</h1>
       <hr />
@@ -30,7 +33,6 @@
           <label for="genre">Genre</label>
           <input class="form-control" name="genre" maxlength="10" />
         </div>
-
         <div class="form-group">
           <label for="title">Title</label>
           <input class="form-control" name="title" />

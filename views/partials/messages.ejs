@@ -10,7 +10,9 @@
 <div class="row justify-content-center">
   <% if (validation != '') { %>
   <div class="col-lg-9 text-center alert alert-danger alert-dismissible fade show" role="alert">
-      <%= validation %>
+      <h3>
+        <%= validation %>
+      </h3>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% } %>
