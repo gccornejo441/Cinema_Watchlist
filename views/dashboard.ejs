@@ -93,19 +93,9 @@
                   <th>Release Date</th>
                   <th>Producer</th>
                   <th>Rating</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-              <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="flexCheckDefault"
-                />
-                <label class="form-check-label" for="flexCheckDefault">
-                  Default checkbox
-                </label>
-              </div>
               <tbody>
                 <% result.forEach((result) => { %>
                 <tr>
@@ -116,6 +106,10 @@
                   <td><%- result['release date'] %></td>
                   <td><%- result.producer %></td>
                   <td><%- result.rating %></td>
+                  <td>
+                    <a  class="btn btn-sm btn-info edit">Edit</a>
+                    <a  class="btn btn-sm btn-danger delete">Delete</a>
+                  </td>
                 </tr>
                 <% }); %>
                 <tr></tr>

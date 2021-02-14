@@ -13,7 +13,6 @@ newMovieRouter.post('/', (req, res, next) => {
 
   const newMovie = new Movies(req.body);
 
-
   newMovie.save()
   .then((movie) => {
     console.log('Movie Information: ', movie);

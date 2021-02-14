@@ -40,48 +40,46 @@ router.post("/register", (req, res, next) => {
   } else {
     Users.findOne({ username: username }, (err, user) => {
       if (err == null && user == null) {
-        Users.exists({ email: email })
-        .then((doc) => {
-          if (doc) {
-          error.push("Email already in use.");
-          req.flash("error", error);
-          return res.redirect("/users/register");
+        Users.findOne({ email: email }, (err, userEmail) => {
+          if (err == null && userEmail == null) {
+            const emailValidator = validator.validate(email);
+    
+              if (emailValidator != true) {
+              error.push("Email is not valid.");
+              req.flash("error", error);
+              return res.redirect("/users/register");
+            } else if (password.length < 6) {
+              error.push(
+                "Not a secure password. A password of six characters or longer is acceptable."
+              );
+              req.flash("error", error);
+              return res.redirect("/users/register");
+            } else {
+              const newUser = new Users({ name, username, email, password });
+    
+              bcrypt.genSalt(saltRounds, (err, salt) => {
+                bcrypt.hash(newUser.password, salt, (err, crypted) => {
+                  newUser.password = crypted;
+                  newUser
+                    .save()
+                    .then((user) => {
+                      console.log("User Information: ", user);
+                    })
+                    .catch((err) => console.log(err));
+                });
+              });
+              res.redirect("/users/signin");
+            }
+            
+          } else {
+              error.push("Email already in use.");
+              req.flash("error", error);
+              return res.redirect("/users/register");
           }
-          next();
         })
-        .catch((err) => console.log(err))
-        const emailValidator = validator.validate(email);
-
-          if (emailValidator != true) {
-          error.push("Email is not valid.");
-          req.flash("error", error);
-          return res.redirect("/users/register");
-        } else if (password.length < 6) {
-          error.push(
-            "Not a secure password. A password of six characters or longer is acceptable."
-          );
-          req.flash("error", error);
-          return res.redirect("/users/register");
-        } else {
-          const newUser = new Users({ name, username, email, password });
-
-          bcrypt.genSalt(saltRounds, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, crypted) => {
-              // Saving user to the DB
-              newUser.password = crypted;
-              newUser
-                .save()
-                .then((user) => {
-                  console.log("User Information: ", user);
-                  res.redirect("/users/signin");
-                })
-                .catch((err) => console.log(err));
-            });
-          });
-        }
       } else {
         error.push("Username is being used.");
-        req.flash("error", `Validation Error: ${error}`);
+        req.flash("error", error);
         return res.redirect("/users/register");
       }
     });
