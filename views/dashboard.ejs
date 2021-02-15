@@ -1,135 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Hugo 0.79.0" />
-    <title>Movie Dashboard</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-    <link
-      rel="canonical"
-      href="https://getbootstrap.com/docs/5.0/examples/dashboard/"
-    />
-    <!-- CSS only -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
+  <meta name="generator" content="Hugo 0.79.0" />
+  <title>Movie Dashboard</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/" />
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
+  </style>
+</head>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+<body class="d-flex flex-column">
 
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet" />
-  </head>
+  <!-- NAVBAR -->
+  <%- include ('partials/navbar'); %>
+    <!-- NAVBAR END -->
 
-  <body class="d-flex flex-column">
-
-    <!-- NAVBAR -->
-    <%- include ('partials/navbar'); %>
-    <!-- NAVBAR END-->
-
-    <!-- MODAL -->
-    <div
-      class="modal fade"
-      id="myModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
+    <!-- MODAL EDIT -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleMyModal">Modal title</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <h5 class="modal-title" id="exampleMyModal">Edit Entry</h5>
+
+            <i type="button" data-dismiss="modal" style="font-size: 1.6rem" aria-label="Close"
+              class="bi bi-x-circle-fill close btn-lg"></i>
+
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <div class="row g-2">
+              <div class="col-md">
+                <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                  <option selected>Categories</option>
+                  <option value="1">Genre</option>
+                  <option value="2">Title</option>
+                  <option value="3">Director</option>
+                  <option value="4">Release Date</option>
+                  <option value="5">Producer</option>
+                  <option value="6">Rating</option>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <input type="email" class="form-control" id="floatingInputGrid" placeholder="e.g., Saving Private Ryan">
+            </div>
+          </div>
+
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-success"
-              data-dismiss="modal"
-            >
-              Edit
+            <button type="button" class="btn btn-success" data-dismiss="modal">
+              <i class="bi bi-pencil-fill"></i>
             </button>
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
     </div>
+    </div>
+    <!-- MODAL EDIT END -->
 
-<div
-      class="modal fade"
-      id="myModalDelete"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleMyModal">Modal title</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-dismiss="modal"
-            >
-              Delete
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+    <!-- MODAL DELETE -->
+    <form action="/dashboard/delete" method="POST">
+      <div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleMyModal">Delete Entry</h5>
+              <i type="button" data-dismiss="modal" style="font-size: 1.6rem" aria-label="Close"
+                class="bi bi-x-circle-fill close btn-lg"></i>
+            </div>
+            <div class="modal-body">
+              <h3>Are you sure you want to delete [item to be deleted]?</h3>
+              <p>This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- MODAL END -->
+    </form>
+    <!-- MODAL DELETE END -->
 
     <div class="container-fluid">
       <div class="row">
         <main class="col-md-9 mx-lg-auto col-lg-10 px-md-4">
           <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-          >
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group me-2">
@@ -140,22 +125,14 @@
                   Export
                 </button>
               </div>
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-secondary dropdown-toggle"
-              >
+              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
                 <span data-feather="calendar"></span>
                 This week
               </button>
             </div>
           </div>
 
-          <canvas
-            class="my-4 w-100"
-            id="myChart"
-            width="900"
-            height="380"
-          ></canvas>
+          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
           <h2>Current Movies</h2>
           <div class="table-responsive">
@@ -174,38 +151,59 @@
               </thead>
               <tbody>
                 <% result.forEach((result)=> { %>
-                <tr>
-                  <td><%- result._id %></td>
-                  <td>
-                    <%- result.genre[0].toUpperCase() +
-                    result.genre.substring(1) %>
-                  </td>
-                  <td><%- result.title %></td>
-                  <td><%- result.director %></td>
-                  <td><%- result['release date'] %></td>
-                  <td><%- result.producer %></td>
-                  <td><%- result.rating %></td>
-                  <td>
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-info edit"
-                      data-toggle="modal"
+                  <tr>
+                    <td>
+                      <%- result._id %>
+                    </td>
+                    <td>
+                      <%- result.genre[0].toUpperCase() + result.genre.substring(1) %>
+                    </td>
+                    <td>
+                      <%- result.title %>
+                    </td>
+                    <td>
+                      <%- result.director %>
+                    </td>
+                    <td>
+                      <%- result['release date'] %>
+                    </td>
+                    <td>
+                      <%- result.producer %>
+                    </td>
+                    <td>
+                      <%- result.rating %>
+                    </td>
+                    <td>
+                      <button 
+                      type="button" 
+                      class="btn btn-sm btn-info edit" 
+                      data-toggle="modal" 
                       data-target="#myModal"
-                    >
-                      Edit
-                    </button>
-                    <button
+                      data-id="<%- result._id %>" 
+                      data-result-genre="<%- result.genre %>}" 
+                      data-result-title="<%- result.title %>}"
+                      data-result-director="<%- result.director %>"
+                      data-result-date="<%- result['release date'] %>"
+                      date-result-producer="<%- result.producer %>"
+                      date-result-rating="<%- result.rating %>" 
+                      >
+                        Edit
+                      </button>
+                      <button 
                       type="button"
-                      class="btn btn-sm btn-danger delete"
+                      onclick="myfunction()"
+                      id="deleteBtn" 
+                      class="btn btn-sm btn-danger delete" 
                       data-toggle="modal"
                       data-target="#myModalDelete"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-                <% }); %>
-                <tr></tr>
+                      data-id="<%- result._id %>" 
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                  <% }); %>
+                    <tr></tr>
               </tbody>
             </table>
           </div>
@@ -215,28 +213,30 @@
 
     <%- include ('partials/footer-post'); %>
 
-    <!-- JavaScript and dependencies -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-      crossorigin="anonymous"
-    ></script>
+    <script>
+      // const mytable = document.getElementById('mytable');
+      const deleteBtn = document.getElementById('deleteBtn');
+      function myfunction() {
+        const result = deleteBtn.getAttribute('data-id');
+        console.log(result);
+      }
+    </script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-      integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-      integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/javascripts/dashboard.js"></script>
-  </body>
+      <!-- JavaScript and dependencies -->
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+        crossorigin="anonymous"></script>
+      <script src="/javascripts/dashboard.js"></script>
+</body>
+
 </html>

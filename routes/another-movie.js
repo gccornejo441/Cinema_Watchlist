@@ -6,4 +6,5 @@ anotherRouter.get('/', (req, res, next) => {
   res.render('another-movie');
 })
 
+
 module.exports = anotherRouter;

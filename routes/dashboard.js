@@ -12,6 +12,12 @@ dashRouter.get('/', ensureAuthenticated, (req, res, next) => {
   .catch(err => next(err));
 })
 
+dashRouter.post('/delete', ensureAuthenticated, (req, res, next) => {
+  console.log('You clicked?')
+  console.log(req.body);
+  res.redirect('/dashboard')
+})
+
 // dashRouter.get('/',  (req, res, next) => {
 //   Movies.find({}).populate('submittedMovies').exec((err, movies) => {
 //     console.log(movies)
