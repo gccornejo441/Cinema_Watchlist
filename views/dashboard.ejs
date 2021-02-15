@@ -10,12 +10,12 @@
     />
     <meta name="generator" content="Hugo 0.79.0" />
     <title>Movie Dashboard</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <link
       rel="canonical"
       href="https://getbootstrap.com/docs/5.0/examples/dashboard/"
     />
-
     <!-- CSS only -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
@@ -43,10 +43,86 @@
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet" />
   </head>
+
   <body class="d-flex flex-column">
+
     <!-- NAVBAR -->
     <%- include ('partials/navbar'); %>
     <!-- NAVBAR END-->
+
+    <!-- MODAL -->
+    <div
+      class="modal fade"
+      id="myModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleMyModal">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-dismiss="modal"
+            >
+              Edit
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div
+      class="modal fade"
+      id="myModalDelete"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleMyModal">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-dismiss="modal"
+            >
+              Delete
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL END -->
 
     <div class="container-fluid">
       <div class="row">
@@ -83,7 +159,7 @@
 
           <h2>Current Movies</h2>
           <div class="table-responsive">
-            <table class="table table-striped table-sm">
+            <table class="table table-striped table-sm" id="mytable">
               <thead>
                 <tr>
                   <th>Identification Number</th>
@@ -97,18 +173,35 @@
                 </tr>
               </thead>
               <tbody>
-                <% result.forEach((result) => { %>
+                <% result.forEach((result)=> { %>
                 <tr>
                   <td><%- result._id %></td>
-                  <td><%- result.genre[0].toUpperCase() + result.genre.substring(1) %></td>
+                  <td>
+                    <%- result.genre[0].toUpperCase() +
+                    result.genre.substring(1) %>
+                  </td>
                   <td><%- result.title %></td>
                   <td><%- result.director %></td>
                   <td><%- result['release date'] %></td>
                   <td><%- result.producer %></td>
                   <td><%- result.rating %></td>
                   <td>
-                    <a  class="btn btn-sm btn-info edit">Edit</a>
-                    <a  class="btn btn-sm btn-danger delete">Delete</a>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-info edit"
+                      data-toggle="modal"
+                      data-target="#myModal"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-danger delete"
+                      data-toggle="modal"
+                      data-target="#myModalDelete"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
                 <% }); %>
@@ -122,9 +215,15 @@
 
     <%- include ('partials/footer-post'); %>
 
+    <!-- JavaScript and dependencies -->
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
       crossorigin="anonymous"
     ></script>
 
