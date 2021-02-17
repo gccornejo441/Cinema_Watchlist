@@ -38,7 +38,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Mongo Connection
 mongoose.connect('mongodb://localhost:27017/chapters',
  {useNewUrlParser: true}, 
- { useUnifiedTopology: true })
+ { useUnifiedTopology: true },
+ { useFindAndModify: false}
+ )
  .catch(error => handleError(error));
 
 // Engine Setup

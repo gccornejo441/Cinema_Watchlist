@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     genre: {
         type: String,
         required: [true, 'Genre field cannot be empty']
@@ -9,7 +8,6 @@ const movieSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, 'Title field cannot be empty'],
-        unique: true,
         trim: true
     },
     director: {
@@ -41,7 +39,8 @@ const movieSchema = new mongoose.Schema({
           }
     },
 
-}, { versionKey: false, 
+}, { 
+    versionKey: false, 
     timestamps: new Date() 
 });
 

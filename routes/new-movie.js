@@ -26,6 +26,7 @@ newMovieRouter.post('/', (req, res, next) => {
           }
       }
     }
+    console.log('Error: ', err);
       res.redirect('/new-movie');
   });
 })
