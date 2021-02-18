@@ -1,0 +1,28 @@
+<!-- MODAL DELETE -->
+<form action="/dashboard/delete/<%- result._id %>" method="POST">
+    <div class="modal fade" id="myModalDelete<%- result._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleMyModal">Delete Entry</h5>
+          <i type="button" data-dismiss="modal" style="font-size: 1.6rem" aria-label="Close"
+            class="bi bi-x-circle-fill close btn-lg"></i>
+        </div>
+        <div class="modal-body">
+          <strong>Are you sure you want to delete
+            <p><%- result._id %> ?</p>
+          </strong>
+          <p>This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- MODAL DELETE END -->

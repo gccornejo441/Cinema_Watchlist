@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     />
 
-    <title>Enter a Movie</title>
+    <title>Edit</title>
   </head>
   <body>
     <!-- NAVBAR -->
@@ -26,32 +26,33 @@
       <%- include ('partials/messages'); %>
       <!-- VALIDATION ERROR-->
       <hr />
-      <h1>Enter a Movie</h1>
+      <h1>Edit</h1>
       <hr />
-      <form action="/new-movie" method="POST">
+      <form action="/dashboard/edit/<%- result._id %>" method="POST">
+        
         <div class="form-group">
           <label for="genre">Genre</label>
-          <input class="form-control" name="genre" maxlength="10" />
+          <input class="form-control" name="genre" maxlength="10" value="<%- result.genre %>"/>
         </div>
         
         <div class="form-group">
           <label for="title">Title</label>
-          <input class="form-control" name="title" />
+          <input class="form-control" name="title" value="<%- result.title %>"/>
         </div>
 
         <div class="form-group">
           <label for="director">Director</label>
-          <input class="form-control" name="director" />
+          <input class="form-control" name="director" value="<%- result.director %>"/>
         </div>
 
         <div class="form-group">
           <label for="release date">Release Date</label>
-          <input class="form-control" name="release date" />
+          <input class="form-control" name="release date" value="<%- result['release date'] %>"/>
         </div>
 
         <div class="form-group">
           <label for="producer">Producer</label>
-          <input class="form-control" name="producer" />
+          <input class="form-control" name="producer" value="<%- result.producer %>"/>
         </div>
 
         <div class="form-group">
@@ -60,12 +61,13 @@
             class="form-control"
             name="rating"
             placeholder="Enter a number from 1 - 5"
-          />
-        </div>
-
+            value="<%- result.rating %>"
+            /> 
+          </div>
+          
         <!--Other fields-->
         <br />
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
       </form>
       <br />
       <a class="btn btn-primary" href="/" role="button">Back</a>

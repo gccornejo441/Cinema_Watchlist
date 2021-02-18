@@ -41,6 +41,7 @@
 <%- include ('partials/navbar'); %>
 <!-- NAVBAR END -->
 <body class="d-flex flex-column">
+  <%- include ('partials/modal'); %>
   
   <div class="container-fluid">
     <div class="row">
@@ -85,15 +86,14 @@
                   </td>
                   <td>
                     <div class="d-flex">
-                      <a
-                      href="/dashboard/edit/<%- result._id %>"
-                      type="button" 
-                      class="btn btn-sm btn-info edit" 
-                      data-toggle="modal" 
-                      data-target="#myModal<%- result._id %>"
-                      >
-                      <i class="bi bi-pencil-fill"></i>
-                    </a>
+                      <form action="/dashboard/edit/<%- result._id %>" method="GET">
+                        <button 
+                        type="submit"
+                        class="btn btn-sm btn-info edit" 
+                        >
+                        <i class="bi bi-pencil-fill"></i>
+                      </button>
+                    </form>
                     <a
                       href="/dashboard/delete/<%- result._id %>"
                       type="button"
@@ -106,7 +106,7 @@
                   </div>
                 </td>
                 <td>
-                  <%- include ('partials/modal', { result: result}); %>
+                  <%- include ('partials/modalDlt', { result: result }); %>
                 </td>
               </tr>
               <% }); %>
