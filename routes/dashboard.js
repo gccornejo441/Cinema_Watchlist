@@ -1,6 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { ensureAuthenticated } = require("../config/auth");
+const MongoClient = require('mongodb').MongoClient;
+
+// Mongo Information
+const url = 'mongodb://localhost:27017';
+const dbName = 'chapters';
 
 const dashRouter = express.Router();
 
@@ -17,16 +22,7 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
     console.log(result);
     if (result && result.length) {
       if (user != null) {
-        console.log("Result: ", result);
         res.render("dashboard", { result: result });
-        // Users.find({}, (err, result) => {
-        //   result.forEach((movies) => {
-        //     let result = movies.submittedMovies;
-        //     console.log("Result: ", result);
-        //     if (err) new Error(err);
-        //     res.render("dashboard", { result: result });
-        //   });
-        // }).catch((err) => next(err));
       } else {
         err = new Error("Movie " + req.user._id + " not found");
         res.send("hello");
@@ -40,14 +36,23 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
 
 // POST delete
 dashRouter.post("/delete/:id", ensureAuthenticated, (req, res, next) => {
-  Movies.findByIdAndRemove({ _id: req.params.id }, (err, doc) => {
-    console.log(doc);
-    if (!err) {
-      res.redirect("/dashboard");
-    } else {
-      console.log("Error in movie data: " + err);
+  Users.findOne({ _id: req.user._id }, (err, user) => {
+    const result = user.submittedMovies;
+    if (result && result.length) {
+      if (user != null) {
+        
+        for (let i = 0; i < result.length; i++) {
+          if (result[i]._id == req.params.id) {
+            result.id(req.params.id).remove();
+          }
+        }
+        user.save()
+        .then(() => {
+          res.redirect("/dashboard");
+        })
+      }
     }
-  });
+  }).catch((err) => next(err))
 });
 
 // GET edit
