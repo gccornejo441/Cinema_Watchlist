@@ -6,18 +6,19 @@ const validator = require("email-validator");
 const router = express.Router();
 
 // User schema
-const Users = require("../models/Users");
+const Users = require("../models/userSchema");
 
 // Hashing Information
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+// GET signin
 router.get("/signin", (req, res, next) => {
-  console.log(req.flash('error'));
   console.log("isAuthenticated: ", req.isAuthenticated());
   res.render("signin");
 });
 
+// GET signout
 router.get("/signout", ensureAuthenticated, (req, res, next) => {
   req.logout();
   req.flash("logout", "You are logged out");
@@ -43,8 +44,8 @@ router.post("/register", (req, res, next) => {
         Users.findOne({ email: email }, (err, userEmail) => {
           if (err == null && userEmail == null) {
             const emailValidator = validator.validate(email);
-    
-              if (emailValidator != true) {
+
+            if (emailValidator != true) {
               error.push("Email is not valid.");
               req.flash("error", error);
               return res.redirect("/users/register");
@@ -56,7 +57,7 @@ router.post("/register", (req, res, next) => {
               return res.redirect("/users/register");
             } else {
               const newUser = new Users({ name, username, email, password });
-    
+
               bcrypt.genSalt(saltRounds, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, crypted) => {
                   newUser.password = crypted;
@@ -70,13 +71,12 @@ router.post("/register", (req, res, next) => {
               });
               res.redirect("/users/signin");
             }
-            
           } else {
-              error.push("Email already in use.");
-              req.flash("error", error);
-              return res.redirect("/users/register");
+            error.push("Email already in use.");
+            req.flash("error", error);
+            return res.redirect("/users/register");
           }
-        })
+        });
       } else {
         error.push("Username is being used.");
         req.flash("error", error);
@@ -86,7 +86,8 @@ router.post("/register", (req, res, next) => {
   }
 });
 
-router.post("/signin",
+router.post(
+  "/signin",
   passport.authenticate("local", {
     successRedirect: "/homepage",
     failureRedirect: "/users/signin",

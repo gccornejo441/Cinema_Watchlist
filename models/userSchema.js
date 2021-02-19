@@ -37,14 +37,39 @@ const movieSchema = new mongoose.Schema({
             },
             message: 'Must be less than 5 or more than 1!'
           }
-    },
-
+    }
 }, { 
     versionKey: false, 
     timestamps: new Date() 
 });
 
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        trim: true,
+        required: true, 
+    },
+    username: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    email: {
+        type: String,
+        trim: true,
+        required: [true, 'User email required']
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    submittedMovies: [movieSchema]
+}, { 
+    timestamps: new Date(),
+    versionKey: false
+    }
+);
 
-const Movies = mongoose.model('Movies', movieSchema);
+const Users = mongoose.model('Users', userSchema);
 
-module.exports = Movies;
+module.exports = Users;

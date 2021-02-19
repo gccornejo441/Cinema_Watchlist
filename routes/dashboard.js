@@ -7,16 +7,38 @@ const dashRouter = express.Router();
 dashRouter.use(bodyParser.urlencoded({ extended: false }));
 dashRouter.use(bodyParser.json());
 
-const Movies = require("../models/movieSchema");
+const Users = require("../models/userSchema");
+// const Movies = require("../models/movieSchema");
 
+// GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
-  Movies.find({}, (err, result) => {
-    if (err) new Error(err);
-    res.render("dashboard", { result: result });
-  }).catch((err) => next(err));
+  Users.findOne({ _id: req.user._id }, (err, user) => {
+    const result = user.submittedMovies;
+    console.log(result);
+    if (result && result.length) {
+      if (user != null) {
+        console.log("Result: ", result);
+        res.render("dashboard", { result: result });
+        // Users.find({}, (err, result) => {
+        //   result.forEach((movies) => {
+        //     let result = movies.submittedMovies;
+        //     console.log("Result: ", result);
+        //     if (err) new Error(err);
+        //     res.render("dashboard", { result: result });
+        //   });
+        // }).catch((err) => next(err));
+      } else {
+        err = new Error("Movie " + req.user._id + " not found");
+        res.send("hello");
+      }
+    } else {
+      err = new Error("Movie " + req.user._id + " not found");
+      res.render("dashboard", { result: result });
+    }
+  });
 });
 
-
+// POST delete
 dashRouter.post("/delete/:id", ensureAuthenticated, (req, res, next) => {
   Movies.findByIdAndRemove({ _id: req.params.id }, (err, doc) => {
     console.log(doc);
@@ -28,10 +50,8 @@ dashRouter.post("/delete/:id", ensureAuthenticated, (req, res, next) => {
   });
 });
 
-// GET /dashboard/edit/_id
+// GET edit
 dashRouter.get("/edit/:id", ensureAuthenticated, (req, res, next) => {
-  console.log("Movie Id: ", req.params.id);
-  console.log("Body info: ", req.body);
   Movies.findById(req.params.id, (err, result) => {
     if (err) console.log(err);
     console.log(result);
@@ -39,14 +59,24 @@ dashRouter.get("/edit/:id", ensureAuthenticated, (req, res, next) => {
   }).catch((err) => next(err));
 });
 
+// POST edit
 dashRouter.post("/edit/:id", ensureAuthenticated, (req, res, next) => {
-  console.log("Movie Id: ", req.params.id);
-  console.log("Body info: ", req.body);
   Movies.findByIdAndUpdate(req.params.id, req.body, (err, doc) => {
-    if (err) throw handleError(err);
-    console.log('Document to be updated: ', doc)
+    if (err) console.log(err);
+    console.log("Document to be updated: ", doc);
     res.redirect("/dashboard");
-  }).catch((err) => next(err))
+  }).catch((err) => {
+    if (err) {
+      if (err.name == "ValidationError") {
+        for (field in err.errors) {
+          console.log(err.errors[field].message);
+          req.flash("error", err.errors[field].message);
+        }
+      }
+    }
+    console.log("Error: ", err);
+    res.redirect("/new-movie");
+  });
 });
 
 module.exports = dashRouter;
