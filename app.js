@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const flash = require('connect-flash');
 
-
 const newMovieRouter = require('./routes/new-movie');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');

@@ -1,11 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { ensureAuthenticated } = require("../config/auth");
-const MongoClient = require("mongodb").MongoClient;
-
-// Mongo Information
-const url = "mongodb://localhost:27017";
-const dbName = "chapters";
 
 const dashRouter = express.Router();
 
@@ -13,7 +8,6 @@ dashRouter.use(bodyParser.urlencoded({ extended: false }));
 dashRouter.use(bodyParser.json());
 
 const Users = require("../models/userSchema");
-// const Movies = require("../models/movieSchema");
 
 // GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
@@ -21,7 +15,7 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
     const result = user.submittedMovies;
     if (result && result.length) {
       if (user != null) {
-        res.render("dashboard", { result: result });
+        res.render("dashboard", { result: result, user: req.user.username });
       } else {
         err = new Error("Movie " + req.user._id + " not found");
         res.send("hello");
@@ -57,11 +51,12 @@ dashRouter.get("/edit/:id", ensureAuthenticated, (req, res, next) => {
   Users.findById(req.user._id, (err, user) => {
     if (err) new Error(err);
     const result = user.submittedMovies;
+    console.log(result.id(req.params.id));
     if (result && result.length) {
       if (user != null) {
         for (let i = 0; i < result.length; i++) {
           if (result[i]._id == req.params.id) {
-            res.render("edit", { result: result.id(req.params.id) });
+            res.render("edit", { result: result.id(req.params.id), user: req.user.username });
           }
         }
       }

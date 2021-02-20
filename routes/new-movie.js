@@ -15,9 +15,8 @@ newMovieRouter.post("/:userId", (req, res, next) => {
     if (user != null) {
       user.submittedMovies.push(req.body);
       user.save()
-      .then((err, movie) => {
+      .then((err) => {
         if (err) console.log(err);
-        console.log("Movie Information: ", movie);
         res.redirect("/another-movie");
       })
       .catch((err) => {
@@ -42,7 +41,7 @@ newMovieRouter.post("/:userId", (req, res, next) => {
 newMovieRouter.get("/", ensureAuthenticated, (req, res, next) => {
   const userId = req.user._id;
 
-  res.render("new-movie", { userId: userId });
+  res.render("new-movie", { userId: userId,  user: req.user.username });
 });
 
 module.exports = newMovieRouter;
