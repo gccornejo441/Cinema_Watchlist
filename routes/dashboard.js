@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { ensureAuthenticated } = require("../config/auth");
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require("mongodb").MongoClient;
 
 // Mongo Information
-const url = 'mongodb://localhost:27017';
-const dbName = 'chapters';
+const url = "mongodb://localhost:27017";
+const dbName = "chapters";
 
 const dashRouter = express.Router();
 
@@ -19,7 +19,6 @@ const Users = require("../models/userSchema");
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
   Users.findOne({ _id: req.user._id }, (err, user) => {
     const result = user.submittedMovies;
-    console.log(result);
     if (result && result.length) {
       if (user != null) {
         res.render("dashboard", { result: result });
@@ -40,35 +39,40 @@ dashRouter.post("/delete/:id", ensureAuthenticated, (req, res, next) => {
     const result = user.submittedMovies;
     if (result && result.length) {
       if (user != null) {
-        
         for (let i = 0; i < result.length; i++) {
           if (result[i]._id == req.params.id) {
             result.id(req.params.id).remove();
           }
         }
-        user.save()
-        .then(() => {
+        user.save().then(() => {
           res.redirect("/dashboard");
-        })
+        });
       }
     }
-  }).catch((err) => next(err))
+  }).catch((err) => next(err));
 });
 
 // GET edit
 dashRouter.get("/edit/:id", ensureAuthenticated, (req, res, next) => {
-  Movies.findById(req.params.id, (err, result) => {
-    if (err) console.log(err);
-    console.log(result);
-    res.render("edit", { result: result });
+  Users.findById(req.user._id, (err, user) => {
+    if (err) new Error(err);
+    const result = user.submittedMovies;
+    if (result && result.length) {
+      if (user != null) {
+        for (let i = 0; i < result.length; i++) {
+          if (result[i]._id == req.params.id) {
+            res.render("edit", { result: result.id(req.params.id) });
+          }
+        }
+      }
+    }
   }).catch((err) => next(err));
 });
 
 // POST edit
 dashRouter.post("/edit/:id", ensureAuthenticated, (req, res, next) => {
-  Movies.findByIdAndUpdate(req.params.id, req.body, (err, doc) => {
+  Users.findByIdAndUpdate(req.user._id, { $set: { submittedMovies: req.body }}, {new: true}, (err, doc) => {
     if (err) console.log(err);
-    console.log("Document to be updated: ", doc);
     res.redirect("/dashboard");
   }).catch((err) => {
     if (err) {
@@ -80,7 +84,6 @@ dashRouter.post("/edit/:id", ensureAuthenticated, (req, res, next) => {
       }
     }
     console.log("Error: ", err);
-    res.redirect("/new-movie");
   });
 });
 
