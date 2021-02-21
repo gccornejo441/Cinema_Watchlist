@@ -95,4 +95,8 @@ router.post(
   })
 );
 
+router.get('/settings', ensureAuthenticated, (req, res, next) => {
+  res.render('settings', { user: req.user.username, name: req.user.name });
+})
+
 module.exports = router;

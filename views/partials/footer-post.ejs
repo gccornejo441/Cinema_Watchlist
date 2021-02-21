@@ -1,5 +1,22 @@
+<style> 
+  /* Modify the background color */ 
+    
+  .footer-custom { 
+      background-color: rgb(82, 189, 166); 
+  } 
+  /* Modify brand and text color */ 
+    
+  .navbar-custom .navbar-brand, 
+  .navbar-custom .navbar-text a { 
+      color: rgb(240, 240, 240)!important; 
+  }
+  .text-custom {
+    color: rgb(240, 240, 240)!important;
+  } 
+</style> 
+
 <!-- Footer -->
-<footer class="fixed-bottom bg-dark text-center text-lg-start">
+<footer class="fixed-bottom footer-custom text-center text-lg-start">
     <!-- Grid container -->
     <div class="container p-4">
       <!--Grid row-->
@@ -27,11 +44,6 @@
               <a href="http://localhost:3000/dashboard" class="text-light">View Submitted Movies</a>
             </li>
             <li>
-                <a href="http://localhost:3000/users/signout" class="text-light">Sign Out</a>
-              </li>
-              <li>
-                <a href="http://localhost:3000/users/settings" class="text-light">User Settings</a>
-              </li>
           </ul>
         </div>
         <!--Grid column-->
@@ -42,9 +54,9 @@
     <!-- Grid container -->
   
     <!-- Copyright -->
-    <div class="text-center p-3 text-light" style="background-color: #212529">
+    <div class="text-center p-3 text-custom" style="background-color: rgb(82, 189, 166)">
       © 2020 Copyright:
-      <a class="text-light" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      <a class="text-custom" href="https://mdbootstrap.com/">MDBootstrap.com</a>
     </div>
     <!-- Copyright -->
   </footer>

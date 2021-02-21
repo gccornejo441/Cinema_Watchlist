@@ -25,19 +25,18 @@
     />
 
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
+      .btn-custom {
+        background-color: rgb(82, 189, 166);
+        color: rgb(240, 240, 240);
       }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+      .btn-custom {
+    border-color: rgb(240, 240, 240);
+    color: rgb(240, 240, 240);
+  }
+  .btn-custom:hover {
+    background-color: rgb(75, 165, 145);
+    color: rgb(240, 240, 240);
+  } 
     </style>
 
     <!-- Custom styles for this template -->
@@ -84,7 +83,7 @@
           </label>
         </div>
         <div>
-          <button class="w-100 btn btn-lg btn-primary" type="submit">
+          <button class="w-100 btn btn-lg btn-custom" type="submit">
             Sign In
           </button>
         </div>
@@ -94,7 +93,7 @@
 
       <div>
         <form class="d-flex" action="/users/register" method="GET">
-          <button class="w-100 btn btn-lg btn-primary" type="submit">
+          <button class="w-100 btn btn-lg btn-custom" type="submit">
             Register
           </button>
         </form>

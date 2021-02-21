@@ -1,4 +1,29 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+<style> 
+  /* Modify the background color */ 
+    
+  .navbar-custom { 
+      background-color: rgb(82, 189, 166); 
+  } 
+  /* Modify brand and text color */ 
+    
+  .navbar-custom .navbar-brand, 
+  .navbar-custom .navbar-text a { 
+      color: rgb(240, 240, 240)!important; 
+  }
+  a.nav-link {
+    color: rgb(240, 240, 240)!important;
+  }
+  .btn-outline-secondary, .btn-secondary:focus{
+    background-color: rgb(75, 165, 145)!important;
+    border-color: rgb(240, 240, 240);
+    color: rgb(240, 240, 240);
+  }
+  .btn-outline-secondary:hover {
+    background-color: rgb(75, 165, 145);
+    color: rgb(240, 240, 240);
+  } 
+</style> 
+<nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Movie Db</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
