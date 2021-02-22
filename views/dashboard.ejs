@@ -13,6 +13,7 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/" />
   <!-- CSS only -->
+  <link rel="stylesheet" type="text/css" href="stylesheets/dashboard.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
 </head>
@@ -23,72 +24,121 @@
   <!-- NAVBAR END -->  
   <div class="container-fluid">
     <div class="row">
+      <div class="col-md-3 col-lg-2 d-md-block sidebar">
+        <div class="position-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link side-link active" aria-current="page" href="#">
+                <i class="bi bi-soundwave fs-5"></i>
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link side-link" href="#">
+                <i class="bi bi-soundwave fs-5"></i>
+                Movie Details
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link side-link" href="#">
+                <i class="bi bi-soundwave fs-5"></i>
+                Products
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link side-link" href="#">
+                <i class="bi bi-soundwave fs-5"></i>
+                Customers
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link side-link" href="#">
+                <i class="bi bi-soundwave fs-5"></i>
+                Reports
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link side-link" href="#">
+                <i class="bi bi-soundwave fs-5"></i>
+                Integrations
+              </a>
+            </li>
+          </ul>
+  
+          
+          </ul>
+        </div>
+      </div>
+    </div>
       <main class="col-md-9 mx-lg-auto col-lg-10 px-md-4">
-        <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
         <h2>Current Movies</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-sm" id="mytable">
-            <thead>
-              <tr>
-                <th>Genre</th>
-                <th>Title</th>
-                <th>Director</th>
-                <th>Release Date</th>
-                <th>Producer</th>
-                <th>Rating</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% result.forEach((result)=> { %>
-                
+          <div class="row">
+  
+          <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+          <div class="table-responsive">
+            <table class="table table-striped table-sm" id="mytable">
+              <thead>
                 <tr>
-                  <td>
-                    <%- result.genre[0].toUpperCase() + result.genre.substring(1) %>
-                  </td>
-                  <td>
-                    <%- result.title %>
-                  </td>
-                  <td>
-                    <%- result.director %>
-                  </td>
-                  <td>
-                    <%- result['release date'] %>
-                  </td>
-                  <td>
-                    <%- result.producer %>
-                  </td>
-                  <td>
-                    <%- result.rating %>
-                  </td>
-                  <td>
-                    <div class="d-flex">
-                      <form action="/dashboard/edit/<%- result._id %>" method="GET">
-                        <button 
-                        type="submit"
-                        class="btn btn-sm btn-info edit" 
+                  <th>Genre</th>
+                  <th>Title</th>
+                  <th>Director</th>
+                  <th>Release Date</th>
+                  <th>Producer</th>
+                  <th>Rating</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% result.forEach((result)=> { %>
+                  
+                  <tr>
+                    <td>
+                      <%- result.genre[0].toUpperCase() + result.genre.substring(1) %>
+                    </td>
+                    <td>
+                      <%- result.title %>
+                    </td>
+                    <td>
+                      <%- result.director %>
+                    </td>
+                    <td>
+                      <%- result['release date'] %>
+                    </td>
+                    <td>
+                      <%- result.producer %>
+                    </td>
+                    <td>
+                      <%- result.rating %>
+                    </td>
+                    <td>
+                      <div class="d-flex">
+                        <form action="/dashboard/edit/<%- result._id %>" method="GET">
+                          <button 
+                          type="submit"
+                          class="btn btn-sm btn-info edit" 
+                          >
+                          <i class="bi bi-pencil-fill"></i>
+                        </button>
+                      </form>
+                      <a
+                        href="/dashboard/delete/<%- result._id %>"
+                        type="button"
+                        class="btn btn-sm btn-danger delete"
+                        data-toggle="modal" 
+                        data-target="#myModalDelete<%- result._id %>" 
                         >
-                        <i class="bi bi-pencil-fill"></i>
-                      </button>
-                    </form>
-                    <a
-                      href="/dashboard/delete/<%- result._id %>"
-                      type="button"
-                      class="btn btn-sm btn-danger delete"
-                      data-toggle="modal" 
-                      data-target="#myModalDelete<%- result._id %>" 
-                      >
-                      <i class="bi bi-trash-fill"></i>
-                    </a>
-                  </div>
-                </td>
-                <td>
-                  <%- include ('partials/modalDlt', { result: result }); %>
-                </td>
-              </tr>
-              <% }); %>
-            </tbody>
-          </table>
+                        <i class="bi bi-trash-fill"></i>
+                      </a>
+                    </div>
+                  </td>
+                  <td>
+                    <%- include ('partials/modalDlt', { result: result }); %>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+
         </div>
       </main>
     </div>

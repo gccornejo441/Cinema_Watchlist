@@ -2,12 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { ensureAuthenticated } = require("../config/auth");
 
+
 const dashRouter = express.Router();
 
 dashRouter.use(bodyParser.urlencoded({ extended: false }));
 dashRouter.use(bodyParser.json());
 
 const Users = require("../models/userSchema");
+
 
 // GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {

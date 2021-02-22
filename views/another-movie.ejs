@@ -13,11 +13,27 @@
       crossorigin="anonymous"
     />
 
+    
+    <style>
+      .btn-custom {
+        background-color: rgb(82, 189, 166);
+        color: rgb(240, 240, 240);
+      }
+      .btn-custom {
+    border-color: rgb(240, 240, 240);
+    color: rgb(240, 240, 240);
+  }
+  .btn-custom:hover {
+    background-color: rgb(75, 165, 145);
+    color: rgb(240, 240, 240);
+  } 
+    </style>
+
     <title>Create Another Movie</title>
   </head>
   <body>
     <!-- NAVBAR -->
-    <%- include ('partials/navbar'); %>
+    <%- include ('partials/navbar', { user: user }); %>
     <!-- NAVBAR END-->
     <br />
     <br />
@@ -28,9 +44,9 @@
       <div class="d-flex">
         <form action="http://localhost:3000/new-movie" method="GET">
           <!--Other fields-->
-          <button type="submit" class="btn btn-primary" style="margin: 1rem">Submit</button>
+          <button type="submit" class="btn btn-custom" style="margin: 1rem">Submit</button>
         </form>
-        <a href="http://localhost:3000/dashboard" type="button" class="btn btn-primary" style="margin: 1rem">View Entries</a>
+        <a href="http://localhost:3000/dashboard" type="button" class="btn btn-custom" style="margin: 1rem">View Entries</a>
       </div>
     </div>
 
