@@ -11,7 +11,6 @@ router.get("/", (req, res, next) => {
 // GET homepage
 router.get("/homepage", ensureAuthenticated, (req, res, next) => {
   const username = req.user.username;
-
   res.render("home2", { user: username });
 });
 

@@ -84,4 +84,8 @@ dashRouter.post("/edit/:id", ensureAuthenticated, (req, res, next) => {
   });
 });
 
+dashRouter.get("/reviews", (req, res, next) => {
+  res.render('reviews', { user: req.user.username });
+})
+
 module.exports = dashRouter;
