@@ -1,7 +1,7 @@
-const Users = require("../../models/userSchema");
+
 
 function mySearch() {
-  const inputVal = document.getElementById("searchVal");
+    const inputVal = document.getElementById("searchVal");
   inputVal.addEventListener("click", () => {
     Users.findOne({ _id: req.user._id }, (err, user) => {
       const result = user.submittedMovies;
