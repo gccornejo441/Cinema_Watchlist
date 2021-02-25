@@ -1,16 +1,18 @@
-const Users = require('../../models/userSchema');
+function searchFunc() {
+    var input, filter, ul, li, btn, i, txtValue;
+    
+    input = document.getElementById("searchVal");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
 
-function mySearch() {
-    const inputVal = document.getElementById("searchVal");
-  inputVal.addEventListener("click", () => {
-    Users.findOne({ _id: req.user._id }, (err, user) => {
-      const result = user.submittedMovies;
-      if (result && result.length) {
-        if (user != null) {
-            console.log("Result: ", result);
-          document.getElementById("demo").innerHTML += result;
+    for (i = 0; i < li.length; i++) {
+        btn = li[i].getElementsByTagName("button")[0];
+        txtValue = btn.textContent || btn.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
         }
-      }
-    });
-  });
+    }
 }

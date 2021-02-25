@@ -70,10 +70,12 @@
               <h1 class="text-center">Reviews</h1>
               <div class="col-md-4 col-lg-9 ">
                 <div class="input-group mb-3">
-                    <input onclick="mySearch()" type="text" class="form-control dropdown-toggle" id="searchVal" placeholder="Search by movie title" data-bs-toggle="dropdown" aria-label="Search by movie title" aria-describedby="search-bar">
+                    <input onkeyup="searchFunc()" type="text" class="form-control dropdown-toggle" id="searchVal" placeholder="Search by movie title" data-bs-toggle="dropdown" aria-label="Search by movie title" aria-describedby="search-bar">
                     <button class="btn btn-custom" type="submit" id="search-bar" data-bs-toggle="modal" data-bs-target="#exampleModal">Search</button>
-                    <ul class="dropdown-menu" aria-labelledby="searchVal">
-                        <li><button class="dropdown-item" type="button">Action</button></li>
+                    <ul id="myUL" class="dropdown-menu" aria-labelledby="searchVal">
+                      <% result.forEach((result) => { %>              
+                        <li><button class="dropdown-item" type="button"><%= result.title %></button></li>
+                        <% }); %>
                       </ul>
                 </div>
               </div>

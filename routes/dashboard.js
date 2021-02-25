@@ -83,21 +83,18 @@ dashRouter.post("/edit/:id", ensureAuthenticated, (req, res, next) => {
   });
 });
 
-dashRouter.get("/reviews", (req, res, next) => {
-  Users.findOne({ _id: req.user._id }, (err, user) => {
+dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
+  Users.findById(req.user._id, (err, user) => {
+    if (err) new Error(err);
     const result = user.submittedMovies;
+    console.log("results: ", result);
     if (result && result.length) {
       if (user != null) {
-        res.render("reviews", { result: result, user: req.user.username });
-      } else {
-        err = new Error("Movie " + req.user._id + " not found");
-        next(err);
+          res.render("reviews", { result: result, user: req.user.username });
+        }
       }
-    } else {
-      err = new Error("Movie " + req.user._id + " not found");
-      res.render("reviews", { result: result });
-    }
-  });
+  })
+  .catch((err) => console.log(err));
 })
 
 module.exports = dashRouter;
