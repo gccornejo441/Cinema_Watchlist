@@ -10,7 +10,6 @@ dashRouter.use(bodyParser.json());
 
 const Users = require("../models/userSchema");
 
-
 // GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
   Users.findOne({ _id: req.user._id }, (err, user) => {
@@ -20,7 +19,7 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
         res.render("dashboard", { result: result, user: req.user.username });
       } else {
         err = new Error("Movie " + req.user._id + " not found");
-        res.send("hello");
+        next(err);
       }
     } else {
       err = new Error("Movie " + req.user._id + " not found");
@@ -85,7 +84,20 @@ dashRouter.post("/edit/:id", ensureAuthenticated, (req, res, next) => {
 });
 
 dashRouter.get("/reviews", (req, res, next) => {
-  res.render('reviews', { user: req.user.username });
+  Users.findOne({ _id: req.user._id }, (err, user) => {
+    const result = user.submittedMovies;
+    if (result && result.length) {
+      if (user != null) {
+        res.render("reviews", { result: result, user: req.user.username });
+      } else {
+        err = new Error("Movie " + req.user._id + " not found");
+        next(err);
+      }
+    } else {
+      err = new Error("Movie " + req.user._id + " not found");
+      res.render("reviews", { result: result });
+    }
+  });
 })
 
 module.exports = dashRouter;

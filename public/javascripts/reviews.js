@@ -1,4 +1,4 @@
-
+const Users = require('../../models/userSchema');
 
 function mySearch() {
     const inputVal = document.getElementById("searchVal");

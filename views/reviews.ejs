@@ -34,6 +34,7 @@
   <!-- NAVBAR -->
   <%- include ('partials/navbar'); %>
   <!-- NAVBAR END --> 
+  
   <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -62,15 +63,19 @@
     </div>
   </div>
   <!--Modal End--> 
+
   <div class="container" style=" margin-top: 10rem ">
     <main>
         <div class="row justify-content-center">
               <h1 class="text-center">Reviews</h1>
               <div class="col-md-4 col-lg-9 ">
                 <div class="input-group mb-3">
-                    <input onclick="mySearch()" type="text" class="form-control" id="searchVal" placeholder="Search by movie title" aria-label="Search by movie title" aria-describedby="button-addon2">
-                    <button class="btn btn-custom" type="submit" id="button-addon2" data-bs-toggle="modal" data-bs-target="#exampleModal">Search</button>
-                  </div>
+                    <input onclick="mySearch()" type="text" class="form-control dropdown-toggle" id="searchVal" placeholder="Search by movie title" data-bs-toggle="dropdown" aria-label="Search by movie title" aria-describedby="search-bar">
+                    <button class="btn btn-custom" type="submit" id="search-bar" data-bs-toggle="modal" data-bs-target="#exampleModal">Search</button>
+                    <ul class="dropdown-menu" aria-labelledby="searchVal">
+                        <li><button class="dropdown-item" type="button">Action</button></li>
+                      </ul>
+                </div>
               </div>
               <p id="demo"></p>
           </div>
