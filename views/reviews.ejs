@@ -4,37 +4,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="" />
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-  <meta name="generator" content="Hugo 0.79.0" />
-  <title>Movie Dashboard</title>
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/" />
+  <title>Movie Reviews</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
-</head>
-<style>
-    .btn-custom {
-      background-color: rgb(82, 189, 166);
-      color: rgb(240, 240, 240);
-    }
-    .btn-custom {
-  border-color: rgb(240, 240, 240);
-  color: rgb(240, 240, 240);
-}
-.btn-custom:hover {
-  background-color: rgb(75, 165, 145);
-  color: rgb(240, 240, 240);
-} 
-  </style>
+    <link href="/stylesheets/reviews.css" rel="stylesheet" />
+  </head>
 <body>
   <!-- NAVBAR -->
   <%- include ('partials/navbar'); %>
   <!-- NAVBAR END --> 
-  
+
   <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -68,20 +48,19 @@
     <main>
         <div class="row justify-content-center">
               <h1 class="text-center">Reviews</h1>
-              <div class="col-md-4 col-lg-9 ">
+              <div class="col-md-4 col-lg-9">
                 <div class="input-group mb-3">
                     <input onkeyup="searchFunc()" type="text" class="form-control dropdown-toggle" id="searchVal" placeholder="Search by movie title" data-bs-toggle="dropdown" aria-label="Search by movie title" aria-describedby="search-bar">
                     <button class="btn btn-custom" type="submit" id="search-bar" data-bs-toggle="modal" data-bs-target="#exampleModal">Search</button>
                     <ul id="myUL" class="dropdown-menu" aria-labelledby="searchVal">
                       <% result.forEach((result) => { %>              
-                        <li><button class="dropdown-item" type="button"><%= result.title %></button></li>
+                        <li style="width: 200px"><button class="dropdown-item" type="button"><%= result.title %></button></li>
                         <% }); %>
-                      </ul>
+                      </ul> 
+                  </div>
                 </div>
               </div>
-              <p id="demo"></p>
-          </div>
-      </main>
+            </main>
   </div>
   <!-- FOOTER START-->
   <%- include ('partials/footer-post'); %>
