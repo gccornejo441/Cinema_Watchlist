@@ -1,18 +1,24 @@
 function searchFunc() {
-    var input, filter, ul, li, btn, i, txtValue;
-    
+    let input, filter, ul, li, a, i, txtValue;
+
     input = document.getElementById("searchVal");
     filter = input.value.toUpperCase();
     ul = document.getElementById("myUL");
     li = ul.getElementsByTagName("li");
 
     for (i = 0; i < li.length; i++) {
-        btn = li[i].getElementsByTagName("button")[0];
-        txtValue = btn.textContent || btn.innerText;
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";
         } else {
             li[i].style.display = "none";
         }
     }
+}
+
+function searchSelec() {
+    let searchTitle = document.getElementById('searchTitle');
+    console.log(searchTitle)
+    document.getElementById('demo').innerHTML = searchTitle.name;
 }

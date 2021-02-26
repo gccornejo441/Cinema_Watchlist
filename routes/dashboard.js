@@ -62,11 +62,14 @@ dashRouter.get("/edit/:id", ensureAuthenticated, (req, res, next) => {
         }
       }
     }
-  }).catch((err) => next(err));
+  }).catch((err) => {
+    next(err);
+    res.render('dashboard')
+  })
 });
 
 // POST edit
-dashRouter.post("/edit/:id", ensureAuthenticated, (req, res, next) => {
+dashRouter.post("/edit", ensureAuthenticated, (req, res, next) => {
   Users.findByIdAndUpdate(req.user._id, { $set: { submittedMovies: req.body }}, {new: true}, (err, doc) => {
     if (err) console.log(err);
     res.redirect("/dashboard");
@@ -96,5 +99,30 @@ dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
   })
   .catch((err) => console.log(err));
 })
+
+
+dashRouter.get("/reviews/:title", ensureAuthenticated, (req, res, next) => {
+  Users.findOne({ _id: req.user._id }, (err, user) => {
+    const result = user.submittedMovies;
+      if (user != null) {
+        result.forEach(movie => {
+          console.log("##############################")
+          console.log(movie.title)
+          console.log(req.params.title)
+          console.log("##############################")
+
+          if (movie.title === req.params.title){
+            console.log("Result is successful");
+            res.render("titles", { 
+              result: result,
+              user: req.user.username,
+              movie: req.params.title
+            });
+          }
+        });
+      }
+  }).catch((err) => console.log(err));
+});
+
 
 module.exports = dashRouter;

@@ -14,13 +14,12 @@
   <!-- NAVBAR -->
   <%- include ('partials/navbar'); %>
   <!-- NAVBAR END --> 
-  <% result.forEach((result) => { %>
   <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"><%= result.title %></h5>
+          <h5 class="modal-title" id="exampleModalLabel"><%- movie %></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -41,39 +40,14 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <h3>movie</h3>
+  <h3>movie</h3>
+  <h3>movie</h3>
+  <h2><%= movie %></h2>
+  <h3>movie</h3>
   <!--Modal End--> 
-  <% }); %>
-  <div class="container" style=" margin-top: 10rem ">
-    <main>
-        <div class="row justify-content-center">
-              <h1 class="text-center">Reviews</h1>
-              <div class="col-md-4 col-lg-9">
-                <div class="input-group mb-3">
-                    <input onkeyup="searchFunc()" type="text" class="form-control dropdown-toggle" id="searchVal" placeholder="Search by movie title" data-bs-toggle="dropdown" aria-label="Search by movie title" aria-describedby="search-bar">
-                    <!-- <button class="btn btn-custom" type="submit" id="search-bar" data-bs-toggle="modal" style="border-radius: 0 .25rem .25rem 0" data-bs-target="#exampleModal">Search</button> -->
-                    <ul id="myUL" class="dropdown-menu col-lg-11" aria-labelledby="searchVal">
-                      <% result.forEach((result) => { %>              
-                        <li id="dropLI">
-                          <a 
-                          id="searchTitle" 
-                          onclick="searchSelec()" 
-                          class="dropdown-item" 
-                          type="button"
-                          href="/dashboard/reviews/<%= result.title %>"
-                          >
-                          <%= result.title %>
-                        </a>
-                      </li>
-                        <% }); %>
-                      </ul> 
-                  </div>
-                </div>
-              </div>
-            </main>
-  </div>
   <!-- FOOTER START-->
-  <%- include ('partials/footer-post'); %>
   <!-- FOOTER END -->
 </body>
 <script src="/javascripts/reviews.js"></script>

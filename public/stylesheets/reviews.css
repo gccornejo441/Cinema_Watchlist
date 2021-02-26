@@ -10,3 +10,8 @@ color: rgb(240, 240, 240);
 background-color: rgb(75, 165, 145);
 color: rgb(240, 240, 240);
 } 
+
+#myUL {
+    font-size: 1.5rem;
+}
+
