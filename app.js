@@ -8,6 +8,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const flash = require('connect-flash');
+require('dotenv').config();
 
 const newMovieRouter = require('./routes/new-movie');
 const indexRouter = require('./routes/index');

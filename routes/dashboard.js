@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const axios = require("axios");
 const { ensureAuthenticated } = require("../config/auth");
-
 
 const dashRouter = express.Router();
 
@@ -9,6 +9,22 @@ dashRouter.use(bodyParser.urlencoded({ extended: false }));
 dashRouter.use(bodyParser.json());
 
 const Users = require("../models/userSchema");
+
+const api_key = process.env.API_KEY;
+const title = "Saving Private Ryan"
+const uri = `http://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${title}&year=1998`;
+const encoded = encodeURI(uri);
+console.log(encoded);
+
+// REQUESTING MOVIEDB
+axios.get(encoded)
+.then((res) => {
+    console.log("Response: ", res.data)
+})
+.catch((err) => {
+  console.log("Error: ", err);
+})
+
 
 // GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
@@ -86,6 +102,7 @@ dashRouter.post("/edit", ensureAuthenticated, (req, res, next) => {
   });
 });
 
+// GET /REVIEWS
 dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
   Users.findById(req.user._id, (err, user) => {
     if (err) new Error(err);
@@ -93,7 +110,7 @@ dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
     console.log("results: ", result);
     if (result && result.length) {
       if (user != null) {
-          res.render("reviews", { result: result, user: req.user.username });
+          res.render("searchbar", { result: result, user: req.user.username });
         }
       }
   })
@@ -101,6 +118,8 @@ dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
 })
 
 
+
+// GET /REVIEWS/TITLE
 dashRouter.get("/reviews/:title", ensureAuthenticated, (req, res, next) => {
   Users.findOne({ _id: req.user._id }, (err, user) => {
     const result = user.submittedMovies;
@@ -113,7 +132,7 @@ dashRouter.get("/reviews/:title", ensureAuthenticated, (req, res, next) => {
 
           if (movie.title === req.params.title){
             console.log("Result is successful");
-            res.render("titles", { 
+            res.render("reviews", { 
               result: result,
               user: req.user.username,
               movie: req.params.title
@@ -123,6 +142,5 @@ dashRouter.get("/reviews/:title", ensureAuthenticated, (req, res, next) => {
       }
   }).catch((err) => console.log(err));
 });
-
 
 module.exports = dashRouter;
