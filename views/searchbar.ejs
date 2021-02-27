@@ -14,36 +14,6 @@
   <!-- NAVBAR -->
   <%- include ('partials/navbar'); %>
   <!-- NAVBAR END --> 
-  <% result.forEach((result) => { %>
-  <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"><%= result.title %></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-                       <div class="mb-3">
-                    <label for="headline" class="form-label">Headline</label>
-                    <input type="email" class="form-control" id="headline" placeholder="Wow! What a great movie!">
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Review</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"></textarea>
-                  </div>
-                  <div class="d-grid gap-2">
-                    <button class="btn btn-custom" type="button">Publish</button>
-                  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--Modal End--> 
-  <% }); %>
   <div class="container" style=" margin-top: 10rem ">
     <main>
         <div class="row justify-content-center">
@@ -51,7 +21,6 @@
               <div class="col-md-4 col-lg-9">
                 <div class="input-group mb-3">
                     <input onkeyup="searchFunc()" type="text" class="form-control dropdown-toggle" id="searchVal" placeholder="Search by movie title" data-bs-toggle="dropdown" aria-label="Search by movie title" aria-describedby="search-bar">
-                    <!-- <button class="btn btn-custom" type="submit" id="search-bar" data-bs-toggle="modal" style="border-radius: 0 .25rem .25rem 0" data-bs-target="#exampleModal">Search</button> -->
                     <ul id="myUL" class="dropdown-menu col-lg-11" aria-labelledby="searchVal">
                       <% result.forEach((result) => { %>              
                         <li id="dropLI">
@@ -60,7 +29,7 @@
                           onclick="searchSelec()" 
                           class="dropdown-item" 
                           type="button"
-                          href="/dashboard/reviews/<%= result.title %>"
+                          href="/dashboard/reviews/<%= result.title %>&<%= result['release date'] %>"
                           >
                           <%= result.title %>
                         </a>

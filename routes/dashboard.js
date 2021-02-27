@@ -11,20 +11,6 @@ dashRouter.use(bodyParser.json());
 const Users = require("../models/userSchema");
 
 const api_key = process.env.API_KEY;
-const title = "Saving Private Ryan"
-const uri = `http://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${title}&year=1998`;
-const encoded = encodeURI(uri);
-console.log(encoded);
-
-// REQUESTING MOVIEDB
-axios.get(encoded)
-.then((res) => {
-    console.log("Response: ", res.data)
-})
-.catch((err) => {
-  console.log("Error: ", err);
-})
-
 
 // GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
@@ -73,23 +59,31 @@ dashRouter.get("/edit/:id", ensureAuthenticated, (req, res, next) => {
       if (user != null) {
         for (let i = 0; i < result.length; i++) {
           if (result[i]._id == req.params.id) {
-            res.render("edit", { result: result.id(req.params.id), user: req.user.username });
+            res.render("edit", {
+              result: result.id(req.params.id),
+              user: req.user.username,
+            });
           }
         }
       }
     }
   }).catch((err) => {
     next(err);
-    res.render('dashboard')
-  })
+    res.render("dashboard");
+  });
 });
 
 // POST edit
 dashRouter.post("/edit", ensureAuthenticated, (req, res, next) => {
-  Users.findByIdAndUpdate(req.user._id, { $set: { submittedMovies: req.body }}, {new: true}, (err, doc) => {
-    if (err) console.log(err);
-    res.redirect("/dashboard");
-  }).catch((err) => {
+  Users.findByIdAndUpdate(
+    req.user._id,
+    { $set: { submittedMovies: req.body } },
+    { new: true },
+    (err, doc) => {
+      if (err) console.log(err);
+      res.redirect("/dashboard");
+    }
+  ).catch((err) => {
     if (err) {
       if (err.name == "ValidationError") {
         for (field in err.errors) {
@@ -110,37 +104,62 @@ dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
     console.log("results: ", result);
     if (result && result.length) {
       if (user != null) {
-          res.render("searchbar", { result: result, user: req.user.username });
-        }
+        res.render("searchbar", { result: result, user: req.user.username });
       }
-  })
-  .catch((err) => console.log(err));
-})
-
+    }
+  }).catch((err) => console.log(err));
+});
 
 
 // GET /REVIEWS/TITLE
-dashRouter.get("/reviews/:title", ensureAuthenticated, (req, res, next) => {
-  Users.findOne({ _id: req.user._id }, (err, user) => {
-    const result = user.submittedMovies;
-      if (user != null) {
-        result.forEach(movie => {
-          console.log("##############################")
-          console.log(movie.title)
-          console.log(req.params.title)
-          console.log("##############################")
+dashRouter.get("/reviews/:title&:date", ensureAuthenticated, (req, res, next) => {
+  
+  const title = req.params.title;
+  const date = req.params.title;
+  const uri = `http://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${title}&year=${date}`;
+  const encoded = encodeURI(uri);
+  
+  // REQUESTING MOVIEDB
+  const movieData = axios.get(encoded)
+  .then((res) => {
+      return res.data;
+    })
+  .catch((err) => {
+      console.log("Error: ", err);
+      return err;
+    });
 
-          if (movie.title === req.params.title){
-            console.log("Result is successful");
-            res.render("reviews", { 
-              result: result,
-              user: req.user.username,
-              movie: req.params.title
-            });
-          }
-        });
-      }
+  movieData.then((data) => {
+    if (data.results[0] === undefined || data.result[0] === 0) {
+      req.flash("error", "This item cannot be reviewed");
+      res.redirect("/homepage");
+    } else {
+      Users.findOne({ _id: req.user._id }, (err, user) => {
+        if (err) new Error(err);
+        const result = user.submittedMovies;
+        if (user != null) {
+          result.forEach((movie) => {
+            console.log("##############################");
+            console.log(movie.title);
+            console.log(req.params.title);
+            // console.log(data.results[0].original_title);
+            console.log("##############################");
+            
+            if (movie.title === req.params.title && req.params.title === data.results[0].original_title) {
+              console.log("Result is successful");
+              res.render("reviews", {
+                result: result,
+                user: req.user.username,
+                movie: req.params.title,
+                overview: data.results[0].overview
+              });
+            }
+          });
+        }
+      }).catch((err) => console.log(err));
+    }
   }).catch((err) => console.log(err));
+
 });
 
 module.exports = dashRouter;
