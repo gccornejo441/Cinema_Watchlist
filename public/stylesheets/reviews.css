@@ -18,3 +18,8 @@ color: rgb(240, 240, 240);
 #publishBtn {
   width: 50%;
 }
+
+img {
+  height: 13rem;
+  width: 12rem;
+}

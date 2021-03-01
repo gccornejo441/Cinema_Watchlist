@@ -3,20 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Hugo 0.79.0" />
     <title>Homepage</title>
-
-    <link
-      rel="canonical"
-      href="https://getbootstrap.com/docs/5.0/examples/starter-template/"
-    />
-
     <!-- CSS only -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -25,6 +15,10 @@
     />
 
     <style>
+      body {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-weight: 400;
+      }
       .btn-custom {
         background-color: rgb(82, 189, 166);
         color: rgb(240, 240, 240);
@@ -36,63 +30,138 @@
   .btn-custom:hover {
     background-color: rgb(75, 165, 145);
     color: rgb(240, 240, 240);
-  } 
+  }
+  img {
+    width: 50vw;
+    height: 50vh;
+    -webkit-box-shadow: 10px 14px 32px -15px rgba(0,0,0,0.56);
+    -moz-box-shadow: 10px 14px 32px -15px rgba(0,0,0,0.56);
+    box-shadow: 10px 14px 32px -15px rgba(0,0,0,0.56);
+  }
+  .container {
+    position: relative;
+  }
+  #sectionHeader {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+  #centerStrip {
+    background-color: rgb(82, 189, 166);
+    height: 15rem;
+    width: 100%;
+  }
+  svg {
+    color: rgb(240, 240, 240);
+  }
     </style>
-
-    <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet" />
   </head>
   <body>
-    <main class="form-signin">
+    <header>
       <!-- NAVBAR -->
       <%- include ('partials/navbar-post'); %>
       <!-- NAVBAR END-->
-      <div class="starter-template text-center py-5 px-3">
-        <h1>Movie Database</h1>
-        <p class="lead">
-          A fully functional database that integrates Express JS, MongoDb &
-          Mongoose to store and display movie data.
-        </p>
+    </header>
+
+    <main>
+
+      <section class="py-5 container-fluid" id="sectionHeader">
+        <div class="row py-lg-5 me-0">
+          <div class="col-sm-5 col-md-6">
+            <img src="images/picturehouse.jfif" />
+          </div>
+          <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0 text">  
+            <div class="ms-4">
+              <h1>Movie Database</h1>
+              <p class="lead">
+                A fully functional database that integrates Express JS, MongoDb &
+                <br>
+                Mongoose to store and display movie data.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="centerStrip" class="container-fluid mb-5">
+        <div class="container py position-relative mt-0">
+          <div class="row justify-content-center gx-5">
+            <div class="col text-center mt-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+              <h5>Manage your own movies</h5>
+              <p>Use our database to cultivate your very own movie library.</p>
+            </div>
+            <div class="col text-center mt-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+              </polygon></svg>
+              <h5>See what other think</h5>
+              <p>Join our community by rating the latest movies.</p>
+            </div>
+            <div class="col text-center mt-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <h5>Join the discussion</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, neque maiores odio rem vel culpa illum in minus qui quam assumenda animi consectetur unde nesciunt. Beatae soluta suscipit pariatur distinctio?</p>
+            </div>
+          </div>
+        </div>
       </div>
+      
       <!-- SIGNOUT MESSAGE -->
       <%- include('partials/messages'); %>
       <!-- SIGNOUT MESSAGE -->
-      <div>
-        <form
-          class="d-flex justify-content-center"
-          action="/users/register"
-          method="GET"
-        >
-          <button class="w-50 btn btn-md btn-custom" type="submit">
-            Register
-          </button>
-        </form>
-      </div>
-
-      <br />
-
-      <!-- Sign-In Button -->
-      <div>
-        <form
+      <section class="pb-5 container-fluid" id="sectionHeader">
+        <div class="row py-lg-5 me-0">
+          <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0 text">  
+            <div class="ms-5">
+              <h1>Sign Up</h1>
+                <form
+                  class="d-flex justify-content-start"
+                  action="/users/register"
+                  method="GET"
+                  >
+                  <button class="w-50 btn btn-md btn-custom" type="submit">
+                    Register
+                  </button>
+                </form>  
+            </div>
+          </div>
+          <div class="col-sm-5 col-md-6 pe-0">
+            <img style="max-width: 100%" src="images/denvertheater.jfif" />
+          </div>
+        </div>
+      </section>
+        
+        <!-- Sign-In Button -->
+        <!-- <div class="mb-5">
+          <form
           class="d-flex justify-content-center"
           action="/users/signin"
           method="GET"
-        >
+          >
           <button class="w-50 btn btn-md btn-custom" type="submit">
             Sign In
           </button>
         </form>
-      </div>
-    </main>
+      </div> -->
 
-    <!--FOOTER START-->
-    <%- include ('partials/footer'); %>
-    <!--FOOTER END-->
-
-    <script
+  </main>
+  <!--FOOTER START-->
+  <%- include ('partials/footer'); %>
+  <!--FOOTER END-->
+  
+  
+  <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
       crossorigin="anonymous"
     ></script>
   </body>
-</html>
+  </html>
+  

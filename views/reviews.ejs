@@ -20,9 +20,12 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <div class="col">
+            <h2 class="modal-title" id="exampleModalLabel">
               <%- movie %>
-            </h5>
+            </h2>
+              <img src="https://image.tmdb.org/t/p/w500/<%- poster %>"/>
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -32,7 +35,7 @@
             </div>
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label">Review</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"></textarea>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
             </div>
             <div class="d-grid gap-2">
               <button class="btn btn-custom" type="button">Publish</button>
@@ -50,17 +53,17 @@
       <main>
         <div class="row justify-content-center">
           <h1 class="text-center">
-        <!-- VALIDATION ERROR -->
-     
-        <!-- VALIDATION ERROR-->
             <%= movie %>
           </h1>
-          <div class="row justify-content-md-center">
-            <div class="col col-lg-6">
-              <p>
-                <%= overview %>
-              </p>
+          <div class="row justify-content-md-center row align-items-start">
+            <div class="col col-lg-2">
+              <img src="https://image.tmdb.org/t/p/w500/<%- poster %>"/>
             </div>
+                <div class="col col-lg-5">
+                  <p>
+                    <%= overview %>
+                  </p>
+                </div>
           </div>
           <button class="btn btn-custom" id="publishBtn" type="submit" id="search-bar" data-bs-toggle="modal"
             data-bs-target="#exampleModal">Publish</button>

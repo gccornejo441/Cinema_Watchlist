@@ -130,7 +130,7 @@ dashRouter.get("/reviews/:title&:date", ensureAuthenticated, (req, res, next) =>
     });
 
   movieData.then((data) => {
-    if (data.results[0] === undefined || data.result[0] === 0) {
+    if (data.results[0] === undefined) {
       req.flash("error", "This item cannot be reviewed");
       res.redirect("/homepage");
     } else {
@@ -142,7 +142,7 @@ dashRouter.get("/reviews/:title&:date", ensureAuthenticated, (req, res, next) =>
             console.log("##############################");
             console.log(movie.title);
             console.log(req.params.title);
-            // console.log(data.results[0].original_title);
+            console.log(data);
             console.log("##############################");
             
             if (movie.title === req.params.title && req.params.title === data.results[0].original_title) {
@@ -151,7 +151,8 @@ dashRouter.get("/reviews/:title&:date", ensureAuthenticated, (req, res, next) =>
                 result: result,
                 user: req.user.username,
                 movie: req.params.title,
-                overview: data.results[0].overview
+                overview: data.results[0].overview,
+                poster: data.results[0].poster_path
               });
             }
           });
