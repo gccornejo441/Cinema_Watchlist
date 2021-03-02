@@ -28,6 +28,9 @@
     background-color: rgb(75, 165, 145);
     color: rgb(240, 240, 240);
   } 
+  #searchBar {
+    height: 20%;
+  }
     </style>
   </head>
   <body>
@@ -43,47 +46,59 @@
       <hr />
       <h1>Enter a Movie</h1>
       <hr />
-      <form action="/new-movie/<%= userId %>" method="POST">
-        <div class="form-group">
-          <label for="genre">Genre</label>
-          <input class="form-control" name="genre" maxlength="10" />
+      <section class="container-fluid">
+        <div class="row">
+          <div class="col-sm-5 col-md-6">
+            <form action="/new-movie/<%= userId %>" method="POST">
+              <div class="form-group">
+                <label for="genre">Genre</label>
+                <input class="form-control" name="genre" maxlength="10" />
+              </div>
+              
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input class="form-control" name="title" />
+              </div>
+      
+              <div class="form-group">
+                <label for="director">Director</label>
+                <input class="form-control" name="director" />
+              </div>
+      
+              <div class="form-group">
+                <label for="release date">Release Date</label>
+                <input class="form-control" name="release date" />
+              </div>
+      
+              <div class="form-group">
+                <label for="producer">Producer</label>
+                <input class="form-control" name="producer" />
+              </div>
+      
+              <div class="form-group">
+                <label for="rating">Rating</label>
+                <input
+                  class="form-control"
+                  name="rating"
+                  placeholder="Enter a number from 1 - 5"
+                />
+              </div>
+      
+              <!--Other fields-->
+              <br />
+              <button type="submit" class="btn btn-custom">Submit</button>
+            </form>
+            <br />
+            <a class="btn btn-custom" href="/" role="button">Back</a>
+          </div>
+            <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0 text">
+              <div id="searchBar" style="overflow:auto">
+                <script async src="https://cse.google.com/cse.js?cx=222642ee842dca1cf"></script>
+                <div class="gcse-search"></div>
+              </div>
+            </div>
         </div>
-        
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input class="form-control" name="title" />
-        </div>
-
-        <div class="form-group">
-          <label for="director">Director</label>
-          <input class="form-control" name="director" />
-        </div>
-
-        <div class="form-group">
-          <label for="release date">Release Date</label>
-          <input class="form-control" name="release date" />
-        </div>
-
-        <div class="form-group">
-          <label for="producer">Producer</label>
-          <input class="form-control" name="producer" />
-        </div>
-
-        <div class="form-group">
-          <label for="rating">Rating</label>
-          <input
-            class="form-control"
-            name="rating"
-            placeholder="Enter a number from 1 - 5"
-          />
-        </div>
-
-        <!--Other fields-->
-        <br />
-        <button type="submit" class="btn btn-custom">Submit</button>
-      </form>
-      <br />
-      <a class="btn btn-custom" href="/" role="button">Back</a>
+      </section>
     </div>
 
     <!--FOOTER START-->

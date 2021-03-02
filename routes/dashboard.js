@@ -14,20 +14,54 @@ const api_key = process.env.API_KEY;
 
 // GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
-  Users.findOne({ _id: req.user._id }, (err, user) => {
-    const result = user.submittedMovies;
-    if (result && result.length) {
-      if (user != null) {
-        res.render("dashboard", { result: result, user: req.user.username });
-      } else {
-        err = new Error("Movie " + req.user._id + " not found");
-        next(err);
-      }
-    } else {
-      err = new Error("Movie " + req.user._id + " not found");
-      res.render("dashboard", { result: result });
-    }
-  });
+
+  const uri = `https://api.themoviedb.org/3/trending/all/day?api_key=${api_key}`;
+  const encoded = encodeURI(uri);
+  
+  // REQUESTING MOVIEDB
+  const movieData = axios.get(encoded)
+  .then((res) => {
+      return res.data;
+    })
+  .catch((err) => {
+      console.log("Error: ", err);
+      return err;
+    });
+      let pathList = [];
+      movieData.then((data) => {
+        for (let i = data.results.length - 1; i >= 0; i--) {
+          pathList.push(data.results[i].poster_path);
+        }
+        
+        if (data.results === undefined) {
+          req.flash("error", "This item cannot be reviewed");
+          res.redirect("/homepage");
+        } else {
+          Users.findOne({ _id: req.user._id }, (err, user) => {
+            console.log(data.results[1].poster_path)
+            const result = user.submittedMovies;
+            if (result && result.length) {
+              if (user != null) {
+                  console.log("Movie poster list 1: ", pathList[1]);
+                  console.log("Movie poster list 2: ", pathList[2]);
+                  console.log("Movie poster list 4: ", pathList[4]);
+                  console.log("Movie poster list 5: ", pathList[5]);
+                  res.render("dashboard", { 
+                    result: result,
+                    user: req.user.username,
+                    poster: pathList
+                   });
+                } else {
+                  err = new Error("Movie " + req.user._id + " not found");
+                  next(err);
+                }
+              } else {
+                err = new Error("Movie " + req.user._id + " not found");
+                res.render("dashboard", { result: result });
+              }
+            }).catch((err) => console.log(err))
+          }
+      })
 });
 
 // POST delete
@@ -119,7 +153,7 @@ dashRouter.get("/reviews/:title&:date", ensureAuthenticated, (req, res, next) =>
   const uri = `http://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${title}&year=${date}`;
   const encoded = encodeURI(uri);
   
-  // REQUESTING MOVIEDB
+// REQUESTING MOVIEDB
   const movieData = axios.get(encoded)
   .then((res) => {
       return res.data;

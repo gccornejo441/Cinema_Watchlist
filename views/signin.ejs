@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
     <title>User Sign In</title>
 
     <link
@@ -44,7 +45,7 @@
       <!-- NAVBAR END-->
     </header>
     <main class="form-signin text-center py-lg-5">
-      <section class="py-5 container-fluid" id="sectionHeader">
+      <section class="py-5 container-fluid my-5" id="sectionHeader">
         <form action="/users/signin" method="POST">
           <h1>MOVIE DB</h1>
           <!-- VALIDATION ERROR -->
@@ -86,24 +87,19 @@
             </button>
           </div>
         </form>
-      </section>
-
-      <br />
-
-      <div>
-        <form class="d-flex" action="/users/register" method="GET">
+        <form class="d-flex pt-5" action="/users/register" method="GET">
           <button class="w-100 btn btn-lg btn-custom" type="submit">
             Register
           </button>
         </form>
-      </div>
-      <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+      </section>
     </main>
     
+    <!--FOOTER START-->
+    <%- include ('partials/footer'); %>
+    <!--FOOTER END-->
   </body>
-  <!--FOOTER START-->
-  <%- include ('partials/footer'); %>
-  <!--FOOTER END-->
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"

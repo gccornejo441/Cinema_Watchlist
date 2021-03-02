@@ -3,14 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Hugo 0.79.0" />
     <title>User Registration</title>
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link
       rel="canonical"
       href="https://getbootstrap.com/docs/5.0/examples/sign-in/"
@@ -36,6 +31,10 @@
   .btn-custom:hover {
     background-color: rgb(75, 165, 145);
     color: rgb(240, 240, 240);
+  }
+  h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
   } 
     </style>
 
@@ -53,7 +52,7 @@
             <!-- VALIDATION ERROR -->
     <%- include ('partials/messages'); %>
     <!-- VALIDATION ERROR-->
-        <h2 class="h3 mb-3 fw-normal">Register</h2>
+        <h1>Register</h1>
         <div class="form-group">
           <label for="name" class="visually-hidden">Full Name</label>
           <input
@@ -104,17 +103,11 @@
             required
           />
         </div>
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div>
         <div>
           <button class="w-100 btn btn-lg btn-custom" type="submit">
             Register
           </button>
         </div>
-        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
       </form>
     </main>
 
