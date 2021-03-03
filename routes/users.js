@@ -31,7 +31,7 @@ router.get("/register", (req, res, next) => {
 });
 
 router.post("/register", (req, res, next) => {
-  const { name, username, email, password } = req.body;
+  const { name, username, email, password, password2 } = req.body;
   const error = [];
 
   if (name.length < 1 || name.length > 35) {
@@ -56,20 +56,33 @@ router.post("/register", (req, res, next) => {
               req.flash("error", error);
               return res.redirect("/users/register");
             } else {
-              const newUser = new Users({ name, username, email, password });
-
-              bcrypt.genSalt(saltRounds, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, crypted) => {
-                  newUser.password = crypted;
-                  newUser
-                    .save()
-                    .then((user) => {
-                      console.log("User Information: ", user);
-                    })
-                    .catch((err) => console.log(err));
+              if (password !== password2) {
+                error.push(
+                  "Passwords do not match"
+                );
+                req.flash("error", error);
+                return res.redirect("/users/register");
+              } else {
+                const newUser = new Users({ name, username, email, password, password2 });
+  
+                bcrypt.genSalt(saltRounds, (err, salt) => {
+                  bcrypt.hash(newUser.password, salt, (err, crypted) => {
+                    newUser.password = crypted;
+                    bcrypt.genSalt(saltRounds, (err, salt) => {
+                      bcrypt.hash(newUser.password2, salt, (err, crypted) => {
+                        newUser.password2 = crypted;
+                        newUser
+                          .save()
+                          .then((user) => {
+                            console.log("User Information: ", user);
+                          })
+                          .catch((err) => console.log(err));
+                      });
+                    });
+                  });
                 });
-              });
-              res.redirect("/users/signin");
+                res.redirect("/users/signin");
+              }
             }
           } else {
             error.push("Email already in use.");

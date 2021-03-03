@@ -65,13 +65,6 @@ const userSchema = new mongoose.Schema({
     },
     password2: {
         type: String,
-        required: true,
-        validate: {
-            validator: (val) => {
-                return val !== this.password;
-            },
-            message: 'Passwords do not match'
-        }
     },
     submittedMovies: [movieSchema]
 }, { 
