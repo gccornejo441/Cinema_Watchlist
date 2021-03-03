@@ -1,0 +1,39 @@
+html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    background-color: rgb(221, 221, 221);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+
+  .btn-custom {
+    background-color: rgb(82, 189, 166);
+    color: rgb(240, 240, 240);
+  }
+
+  .btn-custom {
+    border-color: rgb(240, 240, 240);
+    color: rgb(240, 240, 240);
+  }
+
+  .btn-custom:hover {
+    background-color: rgb(75, 165, 145);
+    color: rgb(240, 240, 240);
+  }
+
+  h1 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+  #sectionHeader {
+    height: 100%;
+    width: 20%;
+  }

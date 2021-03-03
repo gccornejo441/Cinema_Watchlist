@@ -42,10 +42,7 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
             const result = user.submittedMovies;
             if (result && result.length) {
               if (user != null) {
-                  console.log("Movie poster list 1: ", pathList[1]);
-                  console.log("Movie poster list 2: ", pathList[2]);
-                  console.log("Movie poster list 4: ", pathList[4]);
-                  console.log("Movie poster list 5: ", pathList[5]);
+
                   res.render("dashboard", { 
                     result: result,
                     user: req.user.username,
