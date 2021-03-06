@@ -32,7 +32,7 @@ body {
   margin: 0 auto;
 }
 
-h1 {
+.nowTrending {
   color: #fff;
 }
 
@@ -41,12 +41,30 @@ h1 {
   position: relative;
   bottom: 3rem;
   z-index: -1;
+  margin: 0 auto;
 }
 
+@media (min-width: 992px) {
+  #dropNavbar {
+    display: none;
+  }
+}
 
-@media (min-width: 768px)
-.d-md-block {
+@media (min-width: 992px) {
+.d-lg-block {
     display: block!important;
+  }
+}
+
+@media (max-width: 992px) {
+  #sidebarMenu {
+    background:rgb(75, 165, 145);
+  }
+}
+
+.scrolly {
+  position: relative;
+  bottom: 60rem;
 }
 
   /* Modify the background color */ 
@@ -74,4 +92,11 @@ h1 {
 }
 .btn-secondary:focus {
   box-shadow: 0 0 0 0.25rem rgb(75, 165, 145);
+}
+
+.card {
+  background-color:rgb(152, 204, 193)!important;
+  -webkit-box-shadow: -8px 18px 20px -8px rgba(0,0,0,0.48);
+-moz-box-shadow: -8px 18px 20px -8px rgba(0,0,0,0.48);
+box-shadow: -8px 18px 20px -8px rgba(0,0,0,0.48);
 }
