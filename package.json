@@ -2,10 +2,12 @@
   "name": "nodeserver-moviedb",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node" : "14.x"
+  },
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "node ./bin/www",
-    "build": "webpack --mode=development"
+    "dev": "node ./bin/www"
   },
   "dependencies": {
     "assert": "^2.0.0",
