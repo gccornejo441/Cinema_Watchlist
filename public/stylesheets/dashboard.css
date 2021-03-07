@@ -56,12 +56,6 @@ body {
   }
 }
 
-@media (max-width: 992px) {
-  #sidebarMenu {
-    background:rgb(75, 165, 145);
-  }
-}
-
 .scrolly {
   position: relative;
   bottom: 60rem;

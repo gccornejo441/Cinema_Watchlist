@@ -7,6 +7,15 @@
 var app = require('../app');
 var debug = require('debug')('nodeserver-moviedb:server');
 var http = require('http');
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+https.createServer(options, app).listen(8000);
 
 /**
  * Get port from environment and store in Express.
