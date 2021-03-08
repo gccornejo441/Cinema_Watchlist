@@ -8,6 +8,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const flash = require('connect-flash');
+const cors = requier('cors');
 
 require('dotenv').config();
 
@@ -58,6 +59,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
+app.use(cors());
 
 // Global variables 
 // Borrowed middleware: bradtraversy/node_passport_login
