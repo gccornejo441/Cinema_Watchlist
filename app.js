@@ -36,8 +36,11 @@ app.use(passport.session());
 // Bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// MONGO URL
+const uri = process.env.MONGODB_URL;
+
 // Mongo Connection
-mongoose.connect('mongodb://localhost:27017/chapters',
+mongoose.connect(uri,
  {useNewUrlParser: true}, 
  { useUnifiedTopology: true },
  { useFindAndModify: false}
