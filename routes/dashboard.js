@@ -14,51 +14,52 @@ const api_key = process.env.API_KEY;
 
 // GET root
 dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
-
   const uri = `https://api.themoviedb.org/3/trending/all/day?api_key=${api_key}`;
   const encoded = encodeURI(uri);
-  
+
   // REQUESTING MOVIEDB
-  const movieData = axios.get(encoded)
-  .then((res) => {
+  const movieData = axios
+    .get(encoded)
+    .then((res) => {
       return res.data;
     })
-  .catch((err) => {
+    .catch((err) => {
       console.log("Error: ", err);
       return err;
     });
-      let pathList = [];
-      movieData.then((data) => {
-        for (let i = data.results.length - 1; i >= 0; i--) {
-          pathList.push(data.results[i].poster_path);
-        }
-        
-        if (data.results === undefined) {
-          req.flash("error", "This item cannot be reviewed");
-          res.redirect("/homepage");
-        } else {
-          Users.findOne({ _id: req.user._id }, (err, user) => {
-            console.log(data.results[1].poster_path)
-            const result = user.submittedMovies;
-            console.log('Result: ', result);
-            if (result === undefined || result.length == 0) {
-              if (user != null) {
+  let pathList = [];
+  movieData.then((data) => {
+    for (let i = data.results.length - 1; i >= 0; i--) {
+      pathList.push(data.results[i].poster_path);
+    }
 
-                  res.render("dashboard", { 
-                    result: result,
-                    user: req.user.username,
-                    poster: pathList
-                   });
-                } else {
-                  err = new Error("Movie " + req.user._id + " not found");
-                  next(err);
-                }
-              } else {
-                res.render("dashboard");
-              }
-            }).catch((err) => console.log(err))
+    if (data.results === undefined) {
+      req.flash("error", "This item cannot be reviewed");
+      res.redirect("/homepage");
+    } else {
+      Users.findOne({ _id: req.user._id }, (err, user) => {
+        console.log(data.results[1].poster_path);
+        const result = user.submittedMovies;
+        console.log("Result: ", result);
+        if (result === undefined || result.length == 0) {
+          console.log("user data: ", user);
+          console.log("Error message: ", err);
+          res.render("dashboard", { result: result, poster: pathList, user: req.user.username});
+        } else {
+          if (user != null) {
+            res.render("dashboard", {
+              result: result,
+              user: req.user.username,
+              poster: pathList,
+            });
+          } else {
+            err = new Error("Movie " + req.user._id + " not found");
+            next(err);
           }
-      })
+        }
+      }).catch((err) => console.log(err));
+    }
+  });
 });
 
 // POST delete
@@ -141,57 +142,64 @@ dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
   }).catch((err) => console.log(err));
 });
 
-
 // GET /REVIEWS/TITLE
-dashRouter.get("/reviews/:title&:date", ensureAuthenticated, (req, res, next) => {
-  
-  const title = req.params.title;
-  const date = req.params.title;
-  const uri = `http://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${title}&year=${date}`;
-  const encoded = encodeURI(uri);
-  
-// REQUESTING MOVIEDB
-  const movieData = axios.get(encoded)
-  .then((res) => {
-      return res.data;
-    })
-  .catch((err) => {
-      console.log("Error: ", err);
-      return err;
-    });
+dashRouter.get(
+  "/reviews/:title&:date",
+  ensureAuthenticated,
+  (req, res, next) => {
+    const title = req.params.title;
+    const date = req.params.title;
+    const uri = `http://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${title}&year=${date}`;
+    const encoded = encodeURI(uri);
 
-  movieData.then((data) => {
-    if (data.results[0] === undefined) {
-      req.flash("error", "This item cannot be reviewed");
-      res.redirect("/homepage");
-    } else {
-      Users.findOne({ _id: req.user._id }, (err, user) => {
-        if (err) new Error(err);
-        const result = user.submittedMovies;
-        if (user != null) {
-          result.forEach((movie) => {
-            console.log("##############################");
-            console.log(movie.title);
-            console.log(req.params.title);
-            console.log(data);
-            console.log("##############################");
-            
-            if (movie.title === req.params.title && req.params.title === data.results[0].original_title) {
-              console.log("Result is successful");
-              res.render("reviews", {
-                result: result,
-                user: req.user.username,
-                movie: req.params.title,
-                overview: data.results[0].overview,
-                poster: data.results[0].poster_path
+    // REQUESTING MOVIEDB
+    const movieData = axios
+      .get(encoded)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+        return err;
+      });
+
+    movieData
+      .then((data) => {
+        if (data.results[0] === undefined) {
+          req.flash("error", "This item cannot be reviewed");
+          res.redirect("/homepage");
+        } else {
+          Users.findOne({ _id: req.user._id }, (err, user) => {
+            if (err) new Error(err);
+            const result = user.submittedMovies;
+            if (user != null) {
+              result.forEach((movie) => {
+                console.log("##############################");
+                console.log(movie.title);
+                console.log(req.params.title);
+                console.log(data);
+                console.log("##############################");
+
+                if (
+                  movie.title === req.params.title &&
+                  req.params.title === data.results[0].original_title
+                ) {
+                  console.log("Result is successful");
+                  res.render("reviews", {
+                    result: result,
+                    user: req.user.username,
+                    movie: req.params.title,
+                    overview: data.results[0].overview,
+                    poster: data.results[0].poster_path,
+                  });
+                }
               });
             }
-          });
+          }).catch((err) => console.log(err));
         }
-      }).catch((err) => console.log(err));
-    }
-  }).catch((err) => console.log(err));
-
-});
+      })
+      .catch((err) => console.log(err));
+  }
+);
 
 module.exports = dashRouter;
