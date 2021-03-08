@@ -34,6 +34,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// CORS Options
+app.use(cors());
+
 // Bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -42,11 +45,11 @@ const uri = process.env.MONGODB_URI;
 
 // Mongo Connection
 mongoose.connect(uri,
- {useNewUrlParser: true}, 
- { useUnifiedTopology: true },
- { useFindAndModify: false}
- )
- .catch(error => handleError(error));
+  {useNewUrlParser: true}, 
+  { useUnifiedTopology: true },
+  { useFindAndModify: false}
+  )
+  .catch(error => handleError(error));
 
 // Engine Setup
 app.set('views', path.join(__dirname, 'views'));
@@ -59,7 +62,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash());
-app.use(cors());
+
 
 // Global variables 
 // Borrowed middleware: bradtraversy/node_passport_login
