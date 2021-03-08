@@ -40,7 +40,8 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
           Users.findOne({ _id: req.user._id }, (err, user) => {
             console.log(data.results[1].poster_path)
             const result = user.submittedMovies;
-            if (result && result.length) {
+            console.log('Result: ', result);
+            if (result === undefined || result.length == 0) {
               if (user != null) {
 
                   res.render("dashboard", { 
@@ -53,8 +54,7 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
                   next(err);
                 }
               } else {
-                err = new Error("Movie " + req.user._id + " not found");
-                res.render("dashboard", { result: result });
+                res.render("dashboard");
               }
             }).catch((err) => console.log(err))
           }
