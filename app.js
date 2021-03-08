@@ -41,10 +41,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // MONGO URL
-const uri = process.env.MONGODB_URI;
+// const uri = process.env.MONGODB_URI;
 
 // Mongo Connection
-mongoose.connect(uri,
+mongoose.connect('mongodb+srv://m001-student:m001-student@sandbox.4ezg9.mongodb.net/moviedb?retryWrites=true&w=majority',
   {useNewUrlParser: true}, 
   { useUnifiedTopology: true },
   { useFindAndModify: false}

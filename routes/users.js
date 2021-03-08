@@ -26,20 +26,20 @@ router.get("/signout", ensureAuthenticated, (req, res, next) => {
 });
 
 router.get("/register", (req, res, next) => {
-  console.log(req.body);
   res.render("register");
 });
 
 router.post("/register", (req, res, next) => {
   const { name, username, email, password, password2 } = req.body;
   const error = [];
-
+  console.log('Request body: ', req.body);
   if (name.length < 1 || name.length > 35) {
     return error.push(
       "Name must be greater than one but less than 35 characters."
     );
   } else {
     Users.findOne({ username: username }, (err, user) => {
+      console.log(user);
       if (err == null && user == null) {
         Users.findOne({ email: email }, (err, userEmail) => {
           if (err == null && userEmail == null) {
