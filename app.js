@@ -37,7 +37,7 @@ app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // MONGO URL
-const uri = process.env.MONGODB_URL;
+const uri = process.env.MONGODB_URI;
 
 // Mongo Connection
 mongoose.connect(uri,
