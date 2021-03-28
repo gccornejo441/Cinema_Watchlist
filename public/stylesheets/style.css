@@ -1,9 +1,10 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Tomorrow', sans-serif;
 }
 
-a {
-  color: #00B7FF;
+html {
+  max-height: 100%;
+  width: 100%;
+  background-color:rgb(240, 255, 251);
 }
-
