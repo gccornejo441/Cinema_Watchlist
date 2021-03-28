@@ -9,7 +9,7 @@
     "start": "node ./bin/www",
     "dev": "node ./bin/www",
     "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "dependencies": {
@@ -18,8 +18,9 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^5.0.0-beta2",
+    "bootstrap-icons": "^1.4.0",
     "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.4.3",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",

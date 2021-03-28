@@ -12,6 +12,7 @@
   }
   .navbar-nav .nav-item .nav-link{
     color: rgb(240, 240, 240)t;
+    font-family: 'Tomorrow', sans-serif;
   }
   .btn-secondary {
     background-color: rgb(75, 165, 145);
@@ -25,12 +26,16 @@
   .btn-secondary:focus {
     box-shadow: 0 0 0 0.25rem rgb(75, 165, 145);
   }
-
+  .navbar-brand {
+    font-family: 'Tomorrow', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+  }
 </style> 
 
 <nav class="navbar navbar-expand-md navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/homepage">Cinema Watchlist</a>
+      <a class="navbar-brand" id="nav-logo" href="/homepage">Cinema Watchlist</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
