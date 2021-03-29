@@ -4,11 +4,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/" />
   <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tomorrow:wght@400;600&display=swap" rel="stylesheet">  
   <title>Homepage</title>
 </head>
 <style>
@@ -42,10 +48,10 @@
 </style>
 
 <body>
+  <!-- NAVBAR -->
+  <%- include ('partials/navbar', { user: user }); %>
+    <!-- NAVBAR END-->
   <main class="form-signin">
-    <!-- NAVBAR -->
-    <%- include ('partials/navbar'); %>
-      <!-- NAVBAR END-->
       <div class="container-lg py-5 px-3">
         <div class="row justify-content-start ms-5 me-5">
           <div class="col-lg-6 col-md-auto col-auto">

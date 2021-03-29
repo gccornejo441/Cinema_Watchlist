@@ -6,72 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
   <title>User Sign In</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/" />
-
   <!-- CSS only -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
-
-  <style>
-    html {
-      height: 100%;
-    }
-
-    body {
-      min-height: 100%;
-      background-color: rgb(221, 221, 221);
-      font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 400;
-    }
-
-    h1 {
-      font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 700;
-    }
-    .btn-custom {
-      background-color: rgb(82, 189, 166);
-      color: rgb(240, 240, 240);
-    }
-
-    .btn-custom {
-      border-color: rgb(240, 240, 240);
-      color: rgb(240, 240, 240);
-    }
-
-    .btn-custom:hover {
-      background-color: rgb(75, 165, 145);
-      color: rgb(240, 240, 240);
-    }
-
-    main {
-      height: 50vw;
-      width: 100%;
-    }
-
-    #animationSVG {
-      position: absolute;
-      left: 0%;
-      bottom: 0%;
-    }
-    .form-signin {
-  width: 100%;
-  max-width: 430px;
-  padding: 55px;
-  margin: auto;
-}
-.form-signin .checkbox {
-  font-weight: 400;
-}
-  </style>
+  integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tomorrow:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="/stylesheets/signin.css" rel="stylesheet" />
 </head>
 
-<body class="text-center">
+<body>
   <header>
     <!-- NAVBAR -->
     <%- include ('partials/navbar-post'); %>
@@ -80,7 +26,7 @@
   <main class="form-signin py-lg-5">
     <section class="py-5 container-lg my-5">
       <form action="/users/signin" method="POST">
-        <h1 class="mb-5">Sign In</h1>
+        <h1 class="mb-5 text-center">Sign In</h1>
         <!-- VALIDATION ERROR -->
         <%- include ('partials/messages'); %>
         <!-- VALIDATION ERROR-->

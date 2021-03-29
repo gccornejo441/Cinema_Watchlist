@@ -23,15 +23,15 @@
   <%- include ('partials/navbar', { user: user }); %>
   <!-- NAVBAR END -->  
   <div id="dashboard-main">
-    <header id="dropNavbar" class="mb-0">
-      <nav class="navbar navbar-custom">
-          <a class="position-relative collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation" style="margin: 0 auto;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </a>
-      </nav>
-    </header>
-  
     <div class="container-fluid">
+      <div id="dropNavbar" class="mb-0">
+        <div class="card d-flex">
+          <button type="button" class="btn position-relative collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation" style="margin: 0 auto;">
+            Extensions
+            <i class="bi bi-arrow-down-up"></i>            
+            </button>  
+          </div>
+        </div>
       <div class="row">
         <div id="sidebarMenu" class="col-md-12 col-lg-auto d-lg-block sidebar collapse">
           <div class="position-sticky pt-3">
@@ -131,7 +131,7 @@
   
             </div>
           </div>
-          <div id="watchlist-table" class="card p-2">
+          <div id="watchlist-table" class="card p-2 mb-2">
             <h2>Watchlist</h2>
             <div class="table-responsive">
               <table class="table table-striped table-sm" id="mytable">
