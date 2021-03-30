@@ -1,7 +1,7 @@
 <style> 
- /* Modify the background color */ 
+  /* Modify the background color */ 
     
- .navbar-custom { 
+  .navbar-custom { 
       background-color: rgb(82, 189, 166); 
   } 
   /* Modify brand and text color */ 
@@ -14,11 +14,6 @@
     color: rgb(240, 240, 240);
     font-family: 'Tomorrow', sans-serif;
   }
-  .btn-secondary {
-    background-color: rgb(75, 165, 145);
-    border-color: rgb(240, 240, 240);
-    color: rgb(240, 240, 240);
-  }
   .btn-secondary:hover, #dropdownMenu {
     background-color: rgb(75, 165, 145);
     color: rgb(240, 240, 240);
@@ -26,27 +21,28 @@
   .btn-secondary:focus {
     box-shadow: 0 0 0 0.25rem rgb(75, 165, 145);
   }
-  .navbar-brand {
+  #nav-logo {
     font-family: 'Tomorrow', sans-serif;
     letter-spacing: 0.3rem;
+    color:rgb(240, 240, 240);
   }
 </style> 
-<nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand fs-2" id="nav-logo" href="/homepage">Cinema Watchlist</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="bi bi-list"></i>
-      </button>
-  
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="/">Home</a>
-          </li>
-        </ul>
-        <form class="d-flex" action="/users/signin" method="GET">
-            <button class="btn btn-custom" type="submit">Sign In</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+  <div class="container-fluid d-flex justify-content-center">
+    <a class="navbar-brand" id="nav-logo" href="#">Cinema Watchlist</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <div class="collapse navbar-collapse"  id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item active">
+          <a class="nav-link text-white" aria-current="page" href="/homepage">Home</a>
+        </li>
+      </ul>
+      <form class="d-flex" action="/users/signin" method="GET">
+        <button class="btn btn-custom" type="submit">Sign In</button>
+    </form>
+  </div>
+  </div>
+</nav>
