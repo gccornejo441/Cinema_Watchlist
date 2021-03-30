@@ -38,11 +38,8 @@ dashRouter.get("/", ensureAuthenticated, (req, res, next) => {
       res.redirect("/homepage");
     } else {
       Users.findOne({ _id: req.user._id }, (err, user) => {
-        console.log(data.results[1].poster_path);
         const result = user.submittedMovies;
-        console.log("Result: ", result);
         if (result === undefined || result.length == 0) {
-          console.log("user data: ", user);
           console.log("Error message: ", err);
           res.render("dashboard", { result: result, poster: pathList, user: req.user.username});
         } else {
@@ -86,7 +83,6 @@ dashRouter.get("/edit/:id", ensureAuthenticated, (req, res, next) => {
   Users.findById(req.user._id, (err, user) => {
     if (err) new Error(err);
     const result = user.submittedMovies;
-    console.log(result.id(req.params.id));
     if (result && result.length) {
       if (user != null) {
         for (let i = 0; i < result.length; i++) {
@@ -133,7 +129,6 @@ dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
   Users.findById(req.user._id, (err, user) => {
     if (err) new Error(err);
     const result = user.submittedMovies;
-    console.log("results: ", result);
     if (result && result.length) {
       if (user != null) {
         res.render("searchbar", { result: result, user: req.user.username });
@@ -174,12 +169,6 @@ dashRouter.get(
             const result = user.submittedMovies;
             if (user != null) {
               result.forEach((movie) => {
-                console.log("##############################");
-                console.log(movie.title);
-                console.log(req.params.title);
-                console.log(data);
-                console.log("##############################");
-
                 if (
                   movie.title === req.params.title &&
                   req.params.title === data.results[0].original_title
