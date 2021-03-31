@@ -124,6 +124,38 @@ dashRouter.post("/edit", ensureAuthenticated, (req, res, next) => {
   });
 });
 
+/* Searchbar */
+// GET 
+dashRouter.get("/search", ensureAuthenticated, (req, res, next) => {
+  const searchbody = req.body;
+  console.log(searchbody);
+
+  Users.findById(req.user._id, (err, user) => {
+    if (err) new Error(err);
+    const result = user.submittedMovies;
+    if (result && result.length) {
+      if (user != null) {
+        res.render("search", { result: result, user: req.user.username });
+      }
+    }
+  }).catch((err) => console.log(err));
+});
+
+dashRouter.post("/search", ensureAuthenticated, (req, res, next) => {
+  const searchbody = req.body;
+  console.log(searchbody);
+  
+  Users.findById(req.user._id, (err, user) => {
+    if (err) new Error(err);
+    const result = user.submittedMovies;
+    if (result && result.length) {
+      if (user != null) {
+        res.render("search", { result: result, user: req.user.username });
+      }
+    }
+  }).catch((err) => console.log(err));
+});
+
 // GET /REVIEWS
 dashRouter.get("/reviews", ensureAuthenticated, (req, res, next) => {
   Users.findById(req.user._id, (err, user) => {

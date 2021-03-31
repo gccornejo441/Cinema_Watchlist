@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Registration</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/" />
+
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <%- include ('partials/navbar'); %>
+    <!-- NAVBAR END-->
+    <main class="form-signin container">
+      <section class="py-5 my-5" >
+          <!-- VALIDATION ERROR -->
+          <%- include ('partials/messages'); %>
+            <!-- VALIDATION ERROR-->
+            <form class="d-flex" action="/dashboard/search" method="POST">
+                <input value="" name="name" class="form-control me-2" type="text" placeholder="Search" id="mySearch" aria-label="Search">
+                <button  type="submit" class="btn btn-outline-success">Search</button>
+              </form>
+      </section>
+    </main>
+    <script src="/javascripts/search.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
