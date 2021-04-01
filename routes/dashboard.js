@@ -127,8 +127,6 @@ dashRouter.post("/edit", ensureAuthenticated, (req, res, next) => {
 /* Searchbar */
 // GET 
 dashRouter.get("/search", ensureAuthenticated, (req, res, next) => {
-  const searchbody = req.body;
-  console.log(searchbody);
 
   Users.findById(req.user._id, (err, user) => {
     if (err) new Error(err);
@@ -142,18 +140,27 @@ dashRouter.get("/search", ensureAuthenticated, (req, res, next) => {
 });
 
 dashRouter.post("/search", ensureAuthenticated, (req, res, next) => {
-  const searchbody = req.body;
-  console.log(searchbody);
+  const searchbody = req.body.name;
+  const queryexpress = searchbody
+  const uri = `https://api.themoviedb.org/3/search/multi?api_key=${api_key}&language=en-US&query=${queryexpress}&page=1&include_adult=false`;
+  const encoded = encodeURI(uri);
   
-  Users.findById(req.user._id, (err, user) => {
-    if (err) new Error(err);
-    const result = user.submittedMovies;
-    if (result && result.length) {
-      if (user != null) {
-        res.render("search", { result: result, user: req.user.username });
-      }
-    }
-  }).catch((err) => console.log(err));
+  // REQUESTING MOVIEDB
+  const movieData = axios
+    .get(encoded)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log("Error: ", err);
+      return err;
+    });
+    movieData.then((options) => {
+      options.results.forEach(result => {
+        res.render("search-post", { result: result, user: req.user.username})
+      })
+    })
+
 });
 
 // GET /REVIEWS
