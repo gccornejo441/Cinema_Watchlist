@@ -145,6 +145,11 @@ dashRouter.post("/search", ensureAuthenticated, (req, res, next) => {
   const uri = `https://api.themoviedb.org/3/search/multi?api_key=${api_key}&language=en-US&query=${queryexpress}&page=1&include_adult=false`;
   const encoded = encodeURI(uri);
   
+  // No query
+  if ( searchbody == "") {
+    return res.render("search", { user: req.user.username })
+  }
+
   // REQUESTING MOVIEDB
   const movieData = axios
     .get(encoded)
@@ -152,13 +157,19 @@ dashRouter.post("/search", ensureAuthenticated, (req, res, next) => {
       return res.data;
     })
     .catch((err) => {
-      console.log("Error: ", err);
       return err;
     });
     movieData.then((options) => {
-      options.results.forEach(result => {
-        res.render("search-post", { result: result, user: req.user.username})
+      let result = options.results;
+      result.forEach((res) => {
+        res.known_for.forEach((field) => {
+          console.log(field.release_date)
+        })
       })
+        res.render("search-post", { result: result, user: req.user.username })
+    }).catch((err) => {
+      console.log(err)
+      res.render("search", { user: req.user.username })
     })
 
 });
