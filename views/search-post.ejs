@@ -32,14 +32,16 @@
       </section>
       <section>
           <div>
+
+            
             <% result.forEach((result) => { %>
-                <% result.known_for.forEach((field) => { %>
+              <% if ( result.media_type == "movie" ) { %>
             <div class="card">
                 <h5 class="card-header">
-                    <%- result.original_title %>
-                    <%- result.release_date.substring(0,4) %>
-                    <%- field.release_date %>
-                </h5>
+                  <%- result.original_title %>
+                  <br>
+                  (<%- result.release_date.substring(0, 4) %>)
+                  </h5>
                 <div class="card-body">
                     <img src="https://image.tmdb.org/t/p/w500/<%- result.poster_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- result.original_title %>" />
                   <h5 class="card-title">
@@ -52,8 +54,45 @@
                   <a href="#" class="btn btn-primary">More</a>
                 </div>
               </div>
+              <% } else { %>
+                <div class="card" style="width: 12rem;">
+                  <% if ( result.profile_path == null ) { %>
+                  <img src="https://msrealtors.org/wp-content/uploads/2018/11/no-user-image.gif" style="height: 20vh;" class="img-thumbnail rounded" alt="No Photo" />
+                  <% } else { %>
+                  <img src="https://image.tmdb.org/t/p/w500/<%- result.profile_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- result.profile_path %>" />
+                  <% } %>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%- result.name %>
+                    </h5>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>
+                <h2 class="py-3">
+                  <hr>
+                  Known For
+                  <hr>
+                </h2>
+                <% result.known_for.forEach((field) => { %>
+                  <div class="card my-3">
+                    <h5 class="card-header">
+                      <%- field.original_title %>
+                      </h5>
+                    <div class="card-body">
+                        <img src="https://image.tmdb.org/t/p/w500/<%- field.poster_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- field.poster_path %>" />
+                      <h5 class="card-title">
+                        <%- field.media_type %> -
+                        Rating: <%- field.vote_average %>
+                      </h5>
+                      <p class="card-text">
+                          <%- field.overview %>
+                      </p>
+                      <a href="#" class="btn btn-primary">More</a>
+                    </div>
+                  </div>
+                <% }); %>
+              <% } %>
               <% }); %>
-            <% }); %>
           </div>
       </section>
     </main>
