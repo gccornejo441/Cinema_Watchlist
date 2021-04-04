@@ -43,7 +43,11 @@
                   (<%- result.release_date.substring(0, 4) %>)
                   </h5>
                 <div class="card-body">
-                    <img src="https://image.tmdb.org/t/p/w500/<%- result.poster_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- result.original_title %>" />
+                  <% if ( result.poster_path == null ) { %>
+                    <img src="https://msrealtors.org/wp-content/uploads/2018/11/no-user-image.gif" style="height: 20vh;" class="img-thumbnail rounded" alt="No Photo" />
+                    <% } else { %>
+                    <img src="https://image.tmdb.org/t/p/w500/<%- result.poster_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- result.poster_path %>" />
+                    <% } %>
                   <h5 class="card-title">
                     <%- result.media_type %> -
                     Rating: <%- result.vote_average %>
@@ -54,7 +58,7 @@
                   <a href="#" class="btn btn-primary">More</a>
                 </div>
               </div>
-              <% } else { %>
+              <% } else if ( result.media_type == "person") { %>
                 <div class="card" style="width: 12rem;">
                   <% if ( result.profile_path == null ) { %>
                   <img src="https://msrealtors.org/wp-content/uploads/2018/11/no-user-image.gif" style="height: 20vh;" class="img-thumbnail rounded" alt="No Photo" />
@@ -79,8 +83,13 @@
                       <%- field.original_title %>
                       </h5>
                     <div class="card-body">
-                        <img src="https://image.tmdb.org/t/p/w500/<%- field.poster_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- field.poster_path %>" />
-                      <h5 class="card-title">
+                      <% if ( field.poster_path === null ) { %>
+                        <img src="https://msrealtors.org/wp-content/uploads/2018/11/no-user-image.gif" style="height: 20vh;" class="img-thumbnail rounded" alt="No Photo" />
+                      <% } else { %>
+                        <img src="https://image.tmdb.org/t/p/w500/<%- field.poster_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- field.original_title %>" />
+                        <% } %>  
+
+                   <h5 class="card-title">
                         <%- field.media_type %> -
                         Rating: <%- field.vote_average %>
                       </h5>
@@ -91,7 +100,30 @@
                     </div>
                   </div>
                 <% }); %>
-              <% } %>
+              <% } else { %>
+                <div class="card">
+                  <h5 class="card-header">
+                    <%- result.original_name || result.original_title %>
+                    <br>
+                    (<%- result.first_air_date || result.release_date %>)
+                    </h5>
+                  <div class="card-body">
+                      <% if ( result.poster_path === null ) { %>
+                        <img src="https://msrealtors.org/wp-content/uploads/2018/11/no-user-image.gif" style="height: 20vh;" class="img-thumbnail rounded" alt="No Photo" />
+                      <% } else { %>
+                        <img src="https://image.tmdb.org/t/p/w500/<%- result.poster_path %>" style="height: 20vh;" class="img-thumbnail rounded" alt="<%- result.original_title %>" />
+                        <% } %>  
+                    <h5 class="card-title">
+                      <%- result.media_type %> -
+                      Rating: <%- result.vote_average %>
+                    </h5>
+                    <p class="card-text">
+                        <%- result.overview %>
+                    </p>
+                    <a href="#" class="btn btn-primary">More</a>
+                  </div>
+                </div>
+                <% } %> 
               <% }); %>
           </div>
       </section>
