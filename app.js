@@ -25,7 +25,7 @@ require('./config/passport');
 
 // Session 
 app.use(session({
-  secret: 'shhh secret',
+  secret: 'secret',
   resave: true,
   saveUninitialized: true,
 }));
@@ -40,11 +40,11 @@ app.use(cors());
 // Bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// MONGO URL
-// const uri = process.env.MONGODB_URI;
+//MONGO URL
+const uri = process.env.MONGODB_URI;
 
 // Mongo Connection
-mongoose.connect('mongodb+srv://m001-student:m001-student@sandbox.4ezg9.mongodb.net/moviedb?retryWrites=true&w=majority',
+mongoose.connect(uri,
   {useNewUrlParser: true}, 
   { useUnifiedTopology: true },
   { useFindAndModify: false}
