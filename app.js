@@ -40,8 +40,11 @@ app.use(cors());
 // Bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//MONGO URL
-const uri = process.env.MONGODB_URI;
+//Mongo Environment Vars
+const passphrase = process.env.MONGODB_PW;
+
+//Mongo URL
+const uri = `mongodb+srv://${passphrase}:${passphrase}@sandbox.4ezg9.mongodb.net/moviedb?retryWrites=true&w=majority`;
 
 // Mongo Connection
 mongoose.connect(uri,

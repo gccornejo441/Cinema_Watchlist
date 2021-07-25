@@ -5,14 +5,14 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('nodeserver-moviedb:server');
+var debug = require('debug')('cinema-watchlist:server');
 var http = require('http');
 const https = require('https');
-const fs = require('fs');
+require('dotenv').config();
 
 const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+  key: process.env.KEYPEM,
+  cert: process.env.CERT_KEY
 };
 
 https.createServer(options, app).listen(8000);
